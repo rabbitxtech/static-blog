@@ -1,0 +1,52 @@
+/.github
+ /workflows
+  build-and-test.yml
+/app
+ /api
+  /[Name]API
+   [Name]API.js
+   [Name]API.test.js
+  RestClient.ts
+ /components
+  /elements
+   /[Name]
+    [Name].tsx
+    [Name].module.scss
+    [Name].test.ts
+  /modules
+  /templates
+  /layouts
+ /constants
+ /context
+  /[Name]Context
+   [Name]Provider.tsx
+   [Name]Reducer.ts
+   [Name]Actions.ts
+ /hooks
+ /styles
+  /abstracts
+   _functions.scss
+   _mixins.scss
+   _variables.scss
+  /base
+   _base.scss
+   _typography.scss
+  app.scss
+ /types
+ /utils
+/test
+ /fixtures
+ /spec
+  /integration
+  /e2e
+ /support
+/pages
+ 404.tsx
+ _app.tsx
+ _document.tsx
+ _error.tsx
+ indext.tsx
+/public
+ /images
+ robots.txt
+ favicon.ico
