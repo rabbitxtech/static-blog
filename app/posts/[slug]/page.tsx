@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { MDXContent, MDXToc } from '@/components/post'
 import type { Metadata } from 'next'
 import { getKeyWords } from '@/utils/getCategories'
-import { TabNavItem } from '@/components/global'
+import { Comment, TabNavItem } from '@/components/global'
 import { getNormalSlug } from '@/utils/getTexts'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
@@ -89,7 +89,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 				<div className="text-5xl font-semibold">{post.title}</div>
 				<div className="text-sm text-gray-600 dark:text-gray-400 mt-4 mb-2">
 					<div className="flex items-center gap-2 w-full">
-						<div className='flex items-center gap-[2px]'>
+						<div className="flex items-center gap-[2px]">
 							<span>
 								<svg
 									width="14px"
@@ -158,6 +158,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 				<article className="main w-3/4 max-md:w-full">
 					<div className="js-toc-content px-8 max-sm:px-4">
 						<MDXContent post={post} />
+						<Comment />
 					</div>
 				</article>
 				<aside className="sticky top-[64px] max-h-[calc(100vh-64px)] max-[1080px]:hidden overflow-y-auto overflow-x-hidden">
