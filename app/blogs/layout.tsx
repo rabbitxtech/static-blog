@@ -10,6 +10,7 @@ export const metadata = {
 	description: 'Tất cả bài viết của mình',
 	keywords: getKeyWords(),
 	robots: { index: true, follow: true },
+	icons: { other: { rel: 'shortcut icon', url: '/favicon.ico' } },
 	openGraph: {
 		type: 'website',
 		url: `${BASE_URL}/blogs`,
