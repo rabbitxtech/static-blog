@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 import useOpenMenu from '@/hooks/useOpenMenu'
@@ -68,15 +68,6 @@ const MenuModal = () => {
 												onClick={closeModal}
 											>
 												Blog
-											</Link>
-										</li>
-										<li className="mb-4">
-											<Link
-												href="/"
-												className="hover:text-blue-400 font-semibold duration-300"
-												onClick={closeModal}
-											>
-												About
 											</Link>
 										</li>
 									</ul>
