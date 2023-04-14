@@ -9,7 +9,7 @@ const PostCard = (post: PostMeta) => {
 	return (
 		<div className=" shadow-slate-200 dark:shadow-slate-800 shadow-md rounded-lg mb-5">
 			<div className="p-4 border dark:border-white/20 dark:hover:border-white/30 dark:bg-zinc-800 bg-slate-50 rounded-lg h-full flex max-sm:block">
-				<Link href={post.url}>
+				<Link href={post.url} aria-label={`Read more ${post.title}`}>
 					<Image
 						src={post.thumbnail}
 						width={500}
@@ -22,7 +22,7 @@ const PostCard = (post: PostMeta) => {
 					<div>
 						<Link
 							href={post.url}
-							className="text-xl text-blue-400 hover:text-blue-600 duration-300 block"
+							className="text-xl text-blue-600 dark:text-blue-400 duration-300 block"
 						>
 							<span>{post.title}</span>
 						</Link>

@@ -37,8 +37,8 @@ export const metadata = {
 	},
 	applicationName: 'RabbitxTech Blog',
 	alternates: {
-		canonical: `${BASE_URL}`,
-		languages: { 'vi-VN': `${BASE_URL}` },
+		canonical: `${BASE_URL}/blogs`,
+		languages: { 'vi-VN': `${BASE_URL}/blogs` },
 		types: {
 			'application/rss+xml': [{ url: 'rss.xml', title: 'rss' }]
 		}

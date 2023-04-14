@@ -40,7 +40,7 @@ export const generateMetadata = ({
 				siteName: 'RabbitxTech Blog',
 				images: [
 					{
-						url: `${BASE_URL}/images/rabbit-astronaut.png`
+						url: `${BASE_URL}${post.thumbnail}`
 					}
 				],
 				locale: 'vi-VN',
@@ -56,15 +56,15 @@ export const generateMetadata = ({
 				site: 'rabbitxtech',
 				images: [
 					{
-						url: `${BASE_URL}/images/rabbit-astronaut.png`
+						url: `${BASE_URL}${post.thumbnail}`
 					}
 				]
 			},
 			applicationName: 'RabbitxTech Blog',
 			colorScheme: 'normal',
 			alternates: {
-				canonical: `${BASE_URL}`,
-				languages: { 'vi-VN': `${BASE_URL}` },
+				canonical: `${BASE_URL}${post.url}`,
+				languages: { 'vi-VN': `${BASE_URL}${post.url}` },
 				types: {
 					'application/rss+xml': [{ url: 'rss.xml', title: 'rss' }]
 				}
@@ -151,7 +151,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 			</div>
 			<div
 				className={clsx(
-					'max-w-6xl mx-auto flex max-[1080px]:justify-center',
+					'max-w-6xl flex mx-auto mb-4 max-[1080px]:justify-center',
 					post.toc ? 'justify-between' : 'justify-center w-full'
 				)}
 			>

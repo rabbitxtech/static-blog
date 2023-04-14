@@ -10,7 +10,7 @@ const Footer = () => {
 					<span>Nguyen Dong Anh</span>
 				</div>
 				<div className="flex gap-1">
-					<Link href="/rss.xml" className="text-blue-400">
+					<Link href="/rss.xml" className="text-blue-600">
 						RSS
 					</Link>
 					<span>&#x2022;</span>

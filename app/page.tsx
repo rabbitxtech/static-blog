@@ -17,7 +17,7 @@ const Page = () => {
 
 	return (
 		<>
-			<div className="w-full h-[calc(100vh-60px)] flex flex-col justify-center items-center">
+			<div className="w-full min-h-[calc(100vh-60px)] flex flex-col justify-center items-center">
 				<div className="max-w-2xl max-sm:px-4 px-8">
 					<Image
 						src={rabbitAstronaut}
@@ -50,7 +50,7 @@ const Page = () => {
 								</FadeInSection>
 							))}
 						</div>
-						<Link href="/blogs" className="text-blue-400">
+						<Link href="/blogs" className="text-blue-600">
 							<span>Read more &#187;</span>
 						</Link>
 					</div>
