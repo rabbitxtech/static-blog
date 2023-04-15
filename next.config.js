@@ -5,7 +5,8 @@ const nextConfig = {
 	pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 	// reactStrictMode: true,
 	experimental: {
-		appDir: true
+		appDir: true,
+		optimizeCss: true
 		// typedRoutes: true
 	}
 }

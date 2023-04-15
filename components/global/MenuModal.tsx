@@ -19,6 +19,8 @@ const MenuModal = () => {
 				className="block md:hidden w-6 h-6"
 				type="button"
 				onClick={openModal}
+				aria-label="Toggle Menu Modal"
+				title="Toggle Menu Modal"
 			>
 				<span className="gg-menu"></span>
 			</button>

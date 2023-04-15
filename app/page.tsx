@@ -7,13 +7,9 @@ import rabbitAstronaut from '@/public/images/rabbit-astronaut.png'
 import generateRssFeed from '@/utils/generateRSSFeed'
 import { FadeInSection } from '@/components/global'
 
-export const generateStaticParams = async () => {
-	await generateRssFeed()
-	return []
-}
-
 const Page = () => {
 	const posts = use(fetchAllMetaPost(getAllPost())).splice(0, 4)
+	use(generateRssFeed())
 
 	return (
 		<>

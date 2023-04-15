@@ -45,7 +45,7 @@ const ToggleDarkMode = () => {
 	}, [])
 
 	return (
-		<div className="cursor-pointer relative h-6 overflow-y-hidden" aria-label="Toggle Menu Modal" title='Toggle Menu Modal'>
+		<div className="cursor-pointer relative h-6 overflow-y-hidden" aria-label="Change theme" title='Change theme'>
 			<div
 				className="dark:top-[56px] top-0 duration-300 ease-in flex relative"
 				onClick={(e) => {
