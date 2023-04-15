@@ -36,10 +36,31 @@ const Page = () => {
 			<div className="max-w-6xl m-auto max-md:px-4 p-8">
 				<div className="max-w-2xl m-auto">
 					<div className="text-3xl font-semibold mb-8">My Skills</div>
+					<div className="text-2xl font-semibold mb-8">Programing and tools</div>
+					<div className="flex flex-wrap gap-3 text-6xl mb-4 border-b border-zinc-300 dark:border-white/20 pb-6">
+						<i className="devicon-html5-plain-wordmark colored"></i>
+						<i className="devicon-css3-plain-wordmark colored"></i>
+						<i className="devicon-tailwindcss-original-wordmark colored"></i>
+						<i className="devicon-javascript-plain colored"></i>
+						<i className="devicon-typescript-plain colored"></i>
+						<i className="devicon-react-original-wordmark colored"></i>
+						<i className="devicon-nextjs-original-wordmark"></i>
+						<i className="devicon-npm-original-wordmark colored"></i>
+						<i className="devicon-oracle-original colored"></i>
+						<i className="devicon-microsoftsqlserver-plain-wordmark colored"></i>
+						<i className="devicon-mongodb-plain-wordmark colored"></i>
+						<i className="devicon-apachekafka-original-wordmark"></i>
+						<Image
+							src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg"
+							alt="jenkins"
+							width={60}
+							height={60}
+						/>
+					</div>
 					<div className="text-3xl font-semibold mb-8">
 						Recent posts
 					</div>
-					<div className="border-b border-zinc-300 dark:border-white/20 pb-4 ">
+					<div className="border-b border-zinc-300 dark:border-white/20 pb-6">
 						<div className="w-full grid grid-cols-1 mb-6">
 							{posts.map((post, idx) => (
 								<FadeInSection key={post._id}>
@@ -47,7 +68,10 @@ const Page = () => {
 								</FadeInSection>
 							))}
 						</div>
-						<Link href="/blogs" className="text-blue-600">
+						<Link
+							href="/blogs"
+							className="text-blue-600 dark:text-sky-500"
+						>
 							<span>Read more &#187;</span>
 						</Link>
 					</div>

@@ -10,13 +10,13 @@ const Footer = () => {
 					<span>Nguyen Dong Anh</span>
 				</div>
 				<div className="flex gap-1">
-					<Link href="/rss.xml" className="text-blue-600">
+					<Link href="/rss.xml" className="text-blue-600 dark:text-sky-500">
 						RSS
 					</Link>
 					<span>&#x2022;</span>
 					<a
 						href="https://github.com/rabbitxtech"
-						className="text-blue-600"
+						className="text-blue-600 dark:text-sky-500"
 						target="_blank"
 					>
 						Github

@@ -30,7 +30,7 @@ export const generateMetadata = ({
 			authors: { name: post.author },
 			creator: 'rabbitxtech',
 			publisher: 'rabbitxtech',
-			robots: { index: true, follow: true, nocache: true },
+			robots: { index: true, follow: true },
 			icons: {
 				other: [
 					{

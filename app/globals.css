@@ -22,14 +22,26 @@ body {
 /* Toc style */
 
 .is-active-link a.toc-link {
-	color: #58a6ff !important;
+	color: #2563eb !important;
 }
 
 .is-active-link::before {
-	background-color: #58a6ff !important;
+	background-color: #2563eb !important;
 }
 
 .is-active-link {
+	color: #2563eb !important;
+}
+
+.dark .is-active-link a.toc-link {
+	color: #58a6ff !important;
+}
+
+.dark .is-active-link::before {
+	background-color: #58a6ff !important;
+}
+
+.dark .is-active-link {
 	color: #58a6ff !important;
 }
 
