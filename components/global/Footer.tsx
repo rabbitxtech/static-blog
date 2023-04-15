@@ -14,9 +14,13 @@ const Footer = () => {
 						RSS
 					</Link>
 					<span>&#x2022;</span>
-					<span>Github</span>
-					<span>&#x2022;</span>
-					<span>Facebook</span>
+					<a
+						href="https://github.com/rabbitxtech"
+						className="text-blue-600"
+						target="_blank"
+					>
+						Github
+					</a>
 				</div>
 			</div>
 		</div>

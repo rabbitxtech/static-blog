@@ -53,7 +53,7 @@ const NavBar = () => {
 								<li>
 									<Link
 										href="/"
-										className="hover:text-sky-500"
+										className="hover:text-blue-600 dark:hover:text-sky-500"
 									>
 										Home
 									</Link>
@@ -61,14 +61,14 @@ const NavBar = () => {
 								<li>
 									<Link
 										href="/blogs"
-										className="hover:text-sky-500"
+										className="hover:text-blue-600 dark:hover:text-sky-500"
 									>
 										Blog
 									</Link>
 								</li>
 							</ul>
 							<ul className="space-x-8 flex ml-6 pl-6 border-l dark:border-white/20">
-								<li className="text-sky-500">
+								<li>
 									<ToggleDarkMode />
 								</li>
 							</ul>

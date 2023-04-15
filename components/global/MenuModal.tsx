@@ -57,7 +57,7 @@ const MenuModal = () => {
 										<li className="mb-2">
 											<Link
 												href="/"
-												className="hover:text-blue-400 font-semibold duration-300"
+												className="hover:text-blue-600 dark:hover:text-sky-500 font-semibold duration-300"
 												onClick={closeModal}
 											>
 												Home
@@ -66,7 +66,7 @@ const MenuModal = () => {
 										<li className="mb-2">
 											<Link
 												href="/blogs"
-												className="hover:text-blue-400 font-semibold duration-300"
+												className="hover:text-blue-600 dark:hover:text-sky-500 font-semibold duration-300"
 												onClick={closeModal}
 											>
 												Blog
@@ -92,7 +92,7 @@ const MenuModal = () => {
 											></path>
 										</svg>
 									</button>
-									<div className="text-sky-500 font-semibold mt-4">
+									<div className="font-semibold mt-4">
 										<ToggleDarkMode />
 									</div>
 								</Dialog.Panel>

@@ -8,8 +8,8 @@ import generateRssFeed from '@/utils/generateRSSFeed'
 import { FadeInSection } from '@/components/global'
 
 const Page = () => {
-	const posts = use(fetchAllMetaPost(getAllPost())).splice(0, 4)
 	use(generateRssFeed())
+	const posts = use(fetchAllMetaPost(getAllPost())).splice(0, 4)
 
 	return (
 		<>
@@ -20,6 +20,7 @@ const Page = () => {
 						alt="rabbit astronaut"
 						width={400}
 						className="m-auto"
+						loading="lazy"
 					></Image>
 					<div className="font-handwritten font-semibold text-3xl text-center mb-3">
 						My name&apos;s Nguyen Dong Anh, I&apos;m Data Engineer
