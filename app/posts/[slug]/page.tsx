@@ -32,12 +32,26 @@ export const generateMetadata = ({
 			publisher: 'rabbitxtech',
 			robots: { index: true, follow: true, nocache: true },
 			icons: {
-				other: {
-					rel: 'shortcut icon',
-					type: 'image/x-icon',
-					url: '/favicon.ico'
-				}
+				other: [
+					{
+						rel: 'shortcut icon',
+						type: 'image/x-icon',
+						url: '/favicon.ico'
+					},
+					{
+						rel: 'icon',
+						type: 'image/png',
+						url: '/icon/favicon-16x16.png'
+					},
+					{
+						rel: 'icon',
+						type: 'image/png',
+						url: '/icon/favicon-32x32.png'
+					}
+				],
+				apple: '/icon/apple-touch-icon.png'
 			},
+			manifest: '/site.webmanifest.json',
 			openGraph: {
 				type: 'article',
 				url: `${BASE_URL}${post.url}`,

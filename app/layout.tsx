@@ -8,8 +8,28 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 export const metadata = {
 	title: 'RabbitxTech Home',
 	description: 'Một góc chia sẻ và lưu trữ tri thức của Rabbit <3',
-	icons: { other: { rel: 'shortcut icon', type: "image/x-icon", url: '/favicon.ico' } },
+	icons: {
+		other: [
+			{
+				rel: 'shortcut icon',
+				type: 'image/x-icon',
+				url: '/favicon.ico'
+			},
+			{
+				rel: 'icon',
+				type: 'image/png',
+				url: '/icon/favicon-16x16.png'
+			},
+			{
+				rel: 'icon',
+				type: 'image/png',
+				url: '/icon/favicon-32x32.png'
+			}
+		],
+		apple: '/icon/apple-touch-icon.png'
+	},
 	robots: { index: true, follow: true },
+	manifest: '/site.webmanifest.json',
 	openGraph: {
 		type: 'website',
 		url: `${BASE_URL}`,

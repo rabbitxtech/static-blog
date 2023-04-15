@@ -16,7 +16,7 @@ export const TabNavItem = ({
 			className={clsx('rounded-lg px-3 py-1 text-sm font-medium duration-300', {
 				'dark:bg-zinc-600 dark:text-zinc-100 dark:hover:bg-zinc-500 dark:hover:text-white bg-gray-200 hover:bg-gray-300 ':
 					!isActive,
-				'bg-blue-500 text-white': isActive
+				'bg-blue-600 dark:bg-sky-500 text-white': isActive
 			})}
 		>
 			{children}
