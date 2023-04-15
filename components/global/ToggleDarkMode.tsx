@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
 const ToggleDarkMode = () => {
@@ -71,7 +72,7 @@ const ToggleDarkMode = () => {
 				<span className="ml-1 text-blue-600">Light</span>
 			</div>
 			<div
-				className="top-7 dark:top-[-24px] flex duration-300 ease-in relative"
+				className="top-7 dark:top-[-24px] flex duration-300 ease-in relative invisible dark:visible"
 				onClick={(e) => {
 					document.documentElement.classList.remove('dark')
 					localStorage.theme = 'light'
