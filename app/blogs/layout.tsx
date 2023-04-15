@@ -30,7 +30,7 @@ export const metadata = {
 		],
 		apple: '/icon/apple-touch-icon.png'
 	},
-	manifest: '/site.webmanifest.json',
+	manifest: '/site.webmanifest',
 	openGraph: {
 		type: 'website',
 		url: `${BASE_URL}/blogs`,

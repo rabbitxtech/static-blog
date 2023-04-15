@@ -29,7 +29,7 @@ export const metadata = {
 		apple: '/icon/apple-touch-icon.png'
 	},
 	robots: { index: true, follow: true },
-	manifest: '/site.webmanifest.json',
+	manifest: '/site.webmanifest',
 	openGraph: {
 		type: 'website',
 		url: `${BASE_URL}`,

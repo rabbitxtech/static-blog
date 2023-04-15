@@ -51,7 +51,7 @@ export const generateMetadata = ({
 				],
 				apple: '/icon/apple-touch-icon.png'
 			},
-			manifest: '/site.webmanifest.json',
+			manifest: '/site.webmanifest',
 			openGraph: {
 				type: 'article',
 				url: `${BASE_URL}${post.url}`,
