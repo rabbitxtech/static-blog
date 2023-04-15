@@ -54,7 +54,7 @@ export const generateMetadata = ({
 			openGraph: {
 				type: 'website',
 				url: `${BASE_URL}/blogs`,
-				title: 'RabbitxTech Home',
+				title: 'RabbitxTech Blog',
 				description: 'Tất cả bài viết của mình',
 				siteName: 'RabbitxTech Blog',
 				images: [
