@@ -31,7 +31,13 @@ export const generateMetadata = ({
 			creator: 'rabbitxtech',
 			publisher: 'rabbitxtech',
 			robots: { index: true, follow: true, nocache: true },
-			icons: { other: { rel: 'shortcut icon', url: '/favicon.ico' } },
+			icons: {
+				other: {
+					rel: 'shortcut icon',
+					type: 'image/x-icon',
+					url: '/favicon.ico'
+				}
+			},
 			openGraph: {
 				type: 'article',
 				url: `${BASE_URL}${post.url}`,

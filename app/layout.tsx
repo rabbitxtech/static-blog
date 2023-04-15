@@ -8,7 +8,7 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 export const metadata = {
 	title: 'RabbitxTech Home',
 	description: 'Một góc chia sẻ và lưu trữ tri thức của Rabbit <3',
-	icons: { other: { rel: 'shortcut icon', url: '/favicon.ico' } },
+	icons: { other: { rel: 'shortcut icon', type: "image/x-icon", url: '/favicon.ico' } },
 	robots: { index: true, follow: true },
 	openGraph: {
 		type: 'website',
