@@ -87,10 +87,13 @@ export default function RootLayout({
 					`
 					}}
 				/>
-				<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"/>
+				<link
+					rel="stylesheet"
+					href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+				/>
 			</head>
 			<body className="dark:bg-zinc-900 dark:text-slate-200">
-				<div className="flex flex-col min-h-[100vh]">
+				<div className="flex flex-col min-h-[100vh] relative">
 					<NavBar />
 					<div className="flex-1">{children}</div>
 					<Footer />
