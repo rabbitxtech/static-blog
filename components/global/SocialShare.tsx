@@ -46,7 +46,7 @@ const SocialShare = () => {
 					<div>
 						<a
 							className="flex gap-2"
-							href={`https://www.facebook.com/sharer/sharer.php?u=${BASE_URL}${pathName}`}
+							href={`https://twitter.com/share?url=${BASE_URL}${pathName}`}
 							target="_blank"
 						>
 							<svg
