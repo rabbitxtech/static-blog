@@ -5,7 +5,12 @@ import clsx from 'clsx'
 import { MDXContent, MDXToc } from '@/components/post'
 import type { Metadata } from 'next'
 import { getKeyWords } from '@/utils/getCategories'
-import { BackToTop, Comment, TabNavItem } from '@/components/global'
+import {
+	BackToTop,
+	Comment,
+	TabNavItem,
+	SocialShare
+} from '@/components/global'
 import { getNormalSlug } from '@/utils/getTexts'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
@@ -151,6 +156,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 							</svg>
 							<span>{post.readingTime.text}</span>
 						</div>
+						<SocialShare />
 					</div>
 				</div>
 				<div className="flex-wrap inline-flex gap-2 mt-1">
