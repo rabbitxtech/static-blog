@@ -43,11 +43,12 @@ const SocialShare = () => {
 			</a>
 			{isShare && (
 				<div className="absolute flex flex-wrap gap-2 text-black p-2 rounded top-10 left-[50%] translate-x-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute before:top-[-8px] before:left-[50%] before:translate-x-[-50%] before:rotate-45 before:bg-gray-200">
-					<div>
+					<div data-href={`${BASE_URL}${pathName}`} data-layout="" data-size="" className="fb-share-button">
 						<a
-							className="flex gap-2"
-							href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${BASE_URL}${pathName}`)}`}
+							className="flex gap-2 fb-xfbml-parse-ignore"
+							href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${BASE_URL}${pathName}`)}&amp;src=sdkpreparse`}
 							target="_blank"
+                            
 						>
 							<svg
 								width="24px"
