@@ -31,7 +31,7 @@ const BackToTop = () => {
 									stroke="currentColor"
 									strokeLinecap="round"
 									strokeLinejoin="round"
-									stroke-width="2"
+									strokeWidth="2"
 								/>
 
 								<line
