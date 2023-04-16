@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import twitterIcon from '@/public/icon/twitter.svg'
+import facebookIcon from '@/public/icon/facebook.svg'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -38,11 +40,11 @@ const SocialShare = () => {
 					</g>
 				</svg>
 			</a>
-			{/* {isShare && ( */}
+			{isShare && (
 				<div className="absolute flex p-2 rounded top-10 left-[50%] translate-x-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute before:top-[-8px] before:left-[50%] before:translate-x-[-50%] before:rotate-45 before:bg-gray-200">
 					<a
 						href={`https://www.facebook.com/sharer/sharer.php?u=${BASE_URL}${pathName}`}
-						className="mx-1"
+						className="mx-1 w-8"
 						target="_blank"
 						rel="noreferrer"
 					>
@@ -74,7 +76,7 @@ const SocialShare = () => {
 					</a>
 					<a
 						href={`https://twitter.com/share?url=${BASE_URL}${pathName}`}
-						className="twitter-share-button mx-1"
+						className="mx-1"
 						data-show-count="false"
 						target="_blank"
 						rel="noreferrer"
@@ -105,7 +107,7 @@ const SocialShare = () => {
 						</svg>
 					</a>
 				</div>
-			{/* )} */}
+			)}
 		</div>
 	)
 }
