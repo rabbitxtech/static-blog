@@ -44,7 +44,7 @@ const SocialShare = () => {
 				<div className="absolute flex p-2 rounded top-10 left-[50%] translate-x-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute before:top-[-8px] before:left-[50%] before:translate-x-[-50%] before:rotate-45 before:bg-gray-200">
 					<a
 						href={`https://www.facebook.com/sharer/sharer.php?u=${BASE_URL}${pathName}`}
-						className="mx-1 w-8"
+						className="mx-1 w-8 h-8"
 						target="_blank"
 						rel="noreferrer"
 					>
