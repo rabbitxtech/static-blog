@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import rocketSpaceAstronomySpaceshipSatellite from '@/public/icon/rocket-space-astronomy-spaceship-satellite.svg'
+import rocket from '@/public/icon/rocket.svg'
 import clsx from 'clsx'
 import ToggleDarkMode from './ToggleDarkMode'
 import MenuModal from './MenuModal'
@@ -30,7 +30,7 @@ const NavBar = () => {
 	return (
 		<div
 			className={clsx(
-				'sticky w-full top-0 z-50 border-b-[1px] dark:border-white/20 backdrop-filter backdrop-blur-lg duration-500',
+				'sticky w-full top-0 z-50 border-b-[1px] dark:border-white/20 backdrop-filter backdrop-blur-sm duration-500',
 				navbar && 'dark:bg-zinc-950/30 bg-slate-200/30'
 			)}
 		>
@@ -39,7 +39,7 @@ const NavBar = () => {
 					<div>
 						<Link href="/" className="leading-6">
 							<Image
-								src={rocketSpaceAstronomySpaceshipSatellite}
+								src={rocket}
 								alt=""
 								className="mr-2 inline-block"
 							></Image>
