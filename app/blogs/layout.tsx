@@ -6,7 +6,7 @@ import { getKeyWords } from '@/utils/getCategories'
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
 export const metadata = {
-	title: 'RabbitxTech Blog',
+	title: 'RabbitxTech - Blog',
 	description: 'Tất cả bài viết của mình',
 	keywords: getKeyWords(),
 	robots: { index: true, follow: true },
@@ -34,9 +34,9 @@ export const metadata = {
 	openGraph: {
 		type: 'website',
 		url: `${BASE_URL}/blogs`,
-		title: 'RabbitxTech Home',
+		title: 'RabbitxTech - Blog',
 		description: 'Tất cả bài viết của mình',
-		siteName: 'RabbitxTech Blog',
+		siteName: 'RabbitxTech - Blog',
 		images: [
 			{
 				url: `${BASE_URL}/images/rabbit-astronaut.png`
@@ -46,7 +46,7 @@ export const metadata = {
 	},
 	twitter: {
 		card: 'summary',
-		title: 'RabbitxTech Blog',
+		title: 'RabbitxTech - Blog',
 		description: 'Tất cả bài viết của mình',
 		creator: 'rabbitxtech',
 		site: 'rabbitxtech',
@@ -56,7 +56,7 @@ export const metadata = {
 			}
 		]
 	},
-	applicationName: 'RabbitxTech Blog',
+	applicationName: 'RabbitxTech',
 	alternates: {
 		canonical: `${BASE_URL}/blogs`,
 		languages: { 'vi-VN': `${BASE_URL}/blogs` },

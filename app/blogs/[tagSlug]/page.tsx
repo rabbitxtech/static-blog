@@ -24,7 +24,7 @@ export const generateMetadata = ({
 	)
 	if (post)
 		return {
-			title: post.title,
+			title: 'RabbitxTech - Blog',
 			description: post.description,
 			authors: { name: post.author },
 			creator: 'rabbitxtech',
@@ -54,9 +54,9 @@ export const generateMetadata = ({
 			openGraph: {
 				type: 'website',
 				url: `${BASE_URL}/blogs`,
-				title: 'RabbitxTech Blog',
+				title: 'RabbitxTech - Blog',
 				description: 'Tất cả bài viết của mình',
-				siteName: 'RabbitxTech Blog',
+				siteName: 'RabbitxTech',
 				images: [
 					{
 						url: `${BASE_URL}/images/rabbit-astronaut.png`
@@ -66,7 +66,7 @@ export const generateMetadata = ({
 			},
 			twitter: {
 				card: 'summary',
-				title: post.title,
+				title: 'RabbitxTech - Blog',
 				description: post.description,
 				creator: 'rabbitxtech',
 				site: 'rabbitxtech',
@@ -76,7 +76,7 @@ export const generateMetadata = ({
 					}
 				]
 			},
-			applicationName: 'RabbitxTech Blog',
+			applicationName: 'RabbitxTech',
 			colorScheme: 'normal',
 			alternates: {
 				canonical: `${BASE_URL}/blogs/${params.tagSlug}`,

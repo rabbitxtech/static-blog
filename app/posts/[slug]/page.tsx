@@ -57,7 +57,7 @@ export const generateMetadata = ({
 				url: `${BASE_URL}${post.url}`,
 				title: post.description,
 				description: post.description,
-				siteName: 'RabbitxTech Blog',
+				siteName: 'RabbitxTech',
 				images: [
 					{
 						url: `${BASE_URL}${post.thumbnail}`
@@ -73,15 +73,14 @@ export const generateMetadata = ({
 				title: post.title,
 				description: post.description,
 				creator: 'rabbitxtech',
-				site: 'rabbitxtech',
+				site: 'RabbitxTech',
 				images: [
 					{
 						url: `${BASE_URL}${post.thumbnail}`
 					}
 				]
 			},
-			applicationName: 'RabbitxTech Blog',
-			colorScheme: 'normal',
+			applicationName: 'RabbitxTech',
 			alternates: {
 				canonical: `${BASE_URL}${post.url}`,
 				languages: { 'vi-VN': `${BASE_URL}${post.url}` },
