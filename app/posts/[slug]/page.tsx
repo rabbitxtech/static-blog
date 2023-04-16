@@ -126,9 +126,9 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 									/>
 								</svg>
 							</span>
-							<time dateTime={post.date}>
+							<span itemProp="datePublished">
 								{format(parseISO(post.date), 'LLLL d, yyyy')}
-							</time>
+							</span>
 						</div>
 						<div className="flex items-center gap-[2px]">
 							<svg
