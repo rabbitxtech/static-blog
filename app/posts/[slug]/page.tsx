@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { MDXContent, MDXToc } from '@/components/post'
 import type { Metadata } from 'next'
 import { getKeyWords } from '@/utils/getCategories'
-import { Comment, TabNavItem } from '@/components/global'
+import { BackToTop, Comment, TabNavItem } from '@/components/global'
 import { getNormalSlug } from '@/utils/getTexts'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
@@ -183,6 +183,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 				<aside className="sticky top-[64px] max-h-[calc(100vh-64px)] max-[1080px]:hidden overflow-y-auto overflow-x-hidden">
 					<MDXToc toc={true} />
 				</aside>
+				<BackToTop />
 			</div>
 		</>
 	)
