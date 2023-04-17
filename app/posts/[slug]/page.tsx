@@ -30,7 +30,7 @@ export const generateMetadata = ({
 	)
 	if (post)
 		return {
-			title: post.title,
+			title: `${post.title} - RabbitxTech`,
 			description: post.description,
 			authors: { name: post.author },
 			creator: 'rabbitxtech',
@@ -60,7 +60,7 @@ export const generateMetadata = ({
 			openGraph: {
 				type: 'article',
 				url: `${BASE_URL}${post.url}`,
-				title: post.description,
+				title: `${post.title} - RabbitxTech`,
 				description: post.description,
 				siteName: 'RabbitxTech',
 				images: [
@@ -75,7 +75,7 @@ export const generateMetadata = ({
 			},
 			twitter: {
 				card: 'summary',
-				title: post.title,
+				title: `${post.title} - RabbitxTech`,
 				description: post.description,
 				creator: 'rabbitxtech',
 				site: 'RabbitxTech',
