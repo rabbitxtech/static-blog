@@ -2,9 +2,6 @@
 
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
-import twitterIcon from '@/public/icon/twitter.svg'
-import facebookIcon from '@/public/icon/facebook.svg'
-import Link from 'next/link'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -43,12 +40,17 @@ const SocialShare = () => {
 			</a>
 			{isShare && (
 				<div className="absolute flex flex-wrap gap-2 text-black p-2 rounded top-10 left-[50%] translate-x-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute before:top-[-8px] before:left-[50%] before:translate-x-[-50%] before:rotate-45 before:bg-gray-200">
-					<div data-href={`${BASE_URL}${pathName}`} data-layout="" data-size="" className="fb-share-button">
+					<div
+						data-href={`${BASE_URL}${pathName}`}
+						data-layout=""
+						data-size=""
+					>
 						<a
 							className="flex gap-2 fb-xfbml-parse-ignore"
-							href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${BASE_URL}${pathName}`)}&amp;src=sdkpreparse`}
+							href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+								`${BASE_URL}${pathName}`
+							)}&amp;src=sdkpreparse`}
 							target="_blank"
-                            
 						>
 							<svg
 								width="24px"
@@ -74,10 +76,12 @@ const SocialShare = () => {
 							<span>Facebook</span>
 						</a>
 					</div>
-                    <div className="w-full">
+					<div className="w-full">
 						<a
 							className="flex gap-2"
-							href={`https://twitter.com/share?url=${encodeURIComponent(`${BASE_URL}${pathName}`)}`}
+							href={`https://twitter.com/share?url=${encodeURIComponent(
+								`${BASE_URL}${pathName}`
+							)}`}
 							target="_blank"
 						>
 							<svg
@@ -104,7 +108,6 @@ const SocialShare = () => {
 							<span>Twitter</span>
 						</a>
 					</div>
-					
 				</div>
 			)}
 		</div>

@@ -474,6 +474,7 @@ article.main ol {
 	margin-top: 0;
 	margin-bottom: 0;
 	padding-left: 2em;
+	list-style-type: initial;
 }
 
 article.main ol ol,
@@ -687,6 +688,10 @@ article.main ol ol,
 article.main ol ul {
 	margin-top: 0;
 	margin-bottom: 0;
+}
+
+article.main ul ul {
+	list-style-type: circle;
 }
 
 article.main li > p {

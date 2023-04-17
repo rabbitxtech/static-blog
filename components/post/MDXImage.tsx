@@ -6,7 +6,7 @@ const MDXImage: FC<HTMLProps<HTMLImageElement>> = (props) => {
 		<img
 			src={props.src}
 			alt={props.alt || ''}
-			className="max-w-full max-h-[550px] m-auto"
+			className="max-w-full m-auto my-3"
 			{...props}
 		/>
 	)
