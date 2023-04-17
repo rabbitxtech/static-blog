@@ -11,7 +11,7 @@ const BackToTop = () => {
 				e.preventDefault()
 				window.scrollTo({ top: 0, behavior: 'smooth' })
 			}}
-            className='fixed p-2 rounded-md border-[2px] border-current bottom-6 right-6'
+            className='fixed p-2 rounded-md border-[2px] border-current bottom-6 right-6 max-md:hidden'
 		>
 			<svg
 				width="16px"
