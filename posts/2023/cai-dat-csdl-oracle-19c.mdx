@@ -1,9 +1,9 @@
 ---
-title: Cài đặt cơ sở dữ liệu oracle 19c
+title: Cài đặt cơ sở dữ liệu oracle 19c trên linux
 date: 2023-04-13 10:01:00
 tags:
     - title: database
-description: Hướng dẫn cài đặt cơ sở dữ liệu oracle 19c
+description: Hướng dẫn cài đặt cơ sở dữ liệu oracle 19c trên linux
 thumbnail: /images/cai-dat-csdl-oracle-19c/thumbnail.webp
 ---
 
@@ -13,4 +13,351 @@ Oracle Database là một hệ thống CSDL quan hệ, đa mô hình được t�
 để chạy `online transaction processing` (OLTP), `data warehousing` (DW) hoặc chạy đồng thời OLTP và DW. Oracle database có thể được 
 triển khai `on-prem`, `on-cloud`, hoặc `hybrid cloud`
 
-# Các gói cần chuẩn bị
+# I. Chuẩn bị cài đặt
+## I.1 Hệ thống và gói cài đặt
+
+- Hệ điều hành: <span className="text-blue-600 dark:text-sky-500">Oracle Linux 7.9</span>
+
+- Oracle Database 19c (19.3) for Linux x86-64: <span className="text-blue-600 dark:text-sky-500">LINUX.X64_193000_db_home.zip</span>
+
+Có thể download bản cài đặt tại:
+- https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html
+- https://edelivery.oracle.com
+
+## I.2 Thiết lập môi trường cài đặt
+
+### Chỉnh sửa file /etc/host và /etc/hostname
+```
+# Chỉnh sửa /etc/host
+# <Địa chỉ IP>  <Tên máy đầy đủ hợp lệ>  <Tên máy>   
+127.0.0.1      localhost                localhost.localdomain   localhost4   localhost4.localdomian4
+10.0.2.15      rabbit                   rabbit.localdomain      rabbit 
+
+# Chỉnh sửa /etc/hostname
+rabbit
+```
+
+### Cài đặt các package cần thiết và thiết lập môi trường
+
+- Thiết lập tự động
+
+Sử dụng gói “oracle-database-preinstall-19c” để thực hiện cài đặt tất cả thiết lập cần thiết, thực thi lệnh.
+
+```
+yum install -y oracle-database-preinstall-19c
+```
+
+- Thiết lập thủ công
+
+Vì tính bảo mật nên nhiều công ty sẽ yêu cài đặt Offline không sử dụng gói “oracle-database-preinstall-19c”, để thực hiện cài đặt ta cần thực hiện cài đặt như sau
+
+Thêm các dòng sau vào tệp “/etc/sysctl.conf”.
+
+```
+fs.file-max = 6815744
+kernel.sem = 250 32000 100 128
+kernel.shmmni = 4096
+kernel.shmall = 1073741824
+kernel.shmmax = 4398046511104
+kernel.panic_on_oops = 1
+net.core.rmem_default = 262144
+net.core.rmem_max = 4194304
+net.core.wmem_default = 262144
+net.core.wmem_max = 1048576
+net.ipv4.conf.all.rp_filter = 2
+net.ipv4.conf.default.rp_filter = 2
+fs.aio-max-nr = 1048576
+net.ipv4.ip_local_port_range = 9000 65500
+```
+Chạy một trong hai lệnh sau để xem thay đổi các tham số của kernel, sau khi đã chỉnh sửa.
+```
+/sbin/sysctl -p
+# Or
+/sbin/sysctl -p /etc/sysctl.d/98-oracle.conf
+```
+Thêm các dòng sau vào tệp "/etc/security/limits.d/oracle-database-preinstall-19c.conf"
+
+```
+oracle   soft   nofile    1024
+oracle   hard   nofile    65536
+oracle   soft   nproc    16384
+oracle   hard   nproc    16384
+oracle   soft   stack    10240
+oracle   hard   stack    32768
+oracle   hard   memlock    134217728
+oracle   soft   memlock    134217728
+```
+Các gói cần thiết để cài đặt oracle database 19c, có nhiều gói đã đc cài đặt sẵn:
+```
+bc    
+binutils
+compat-libcap1
+compat-libstdc++-33
+dtrace-modules
+dtrace-modules-headers
+dtrace-modules-provider-headers
+dtrace-utils
+elfutils-libelf
+elfutils-libelf-devel
+fontconfig-devel
+glibc
+glibc-devel
+ksh
+libaio
+libaio-devel
+libdtrace-ctf-devel
+libXrender
+libXrender-devel
+libX11
+libXau
+libXi
+libXtst
+libgcc
+librdmacm-devel
+libstdc++
+libstdc++-devel
+libxcb
+make
+net-tools # Clusterware
+nfs-utils # ACFS
+python # ACFS
+python-configshell # ACFS
+python-rtslib # ACFS
+python-six # ACFS
+targetcli # ACFS
+smartmontools
+sysstat
+```
+Đảm bảo đĩa Oracle linux 7 đã được mount, cài đặt các từ đĩa
+```
+rpm -Uvh <tên gói rpm>
+
+rpm -Uvh binutils-2*x86_64*
+rpm -Uvh glibc-2*x86_64 nss-softokn-freebl-3*x86_64
+rpm -Uvh glibc-2*i686 nss-softokn-freebl-3*i686
+rpm -Uvh compat-libstdc++-33*x86_64*
+rpm -Uvh glibc-common-2*x86_64*
+rpm -Uvh glibc-devel-2*x86_64*
+rpm -Uvh glibc-devel-2*i686*
+rpm -Uvh glibc-headers-2*x86_64*
+rpm -Uvh elfutils-libelf-0*x86_64*
+rpm -Uvh elfutils-libelf-devel-0*x86_64*
+rpm -Uvh mpfr-2.4.1-6.el6.x86_64*
+rpm -Uvh cpp-4.4.7-17.el6.x86_64*
+rpm -Uvh ppl-0.10.2-11.el6.x86_64*
+rpm -Uvh cloog-ppl-0.15.7-1.2.el6.x86_64* 
+rpm -Uvh gcc-4*x86_64*
+rpm -Uvh gcc-c++-4*x86_64*
+rpm -Uvh ksh-*x86_64*
+rpm -Uvh libaio-0*x86_64*
+rpm -Uvh libaio-devel-0*x86_64*
+rpm -Uvh libaio-0*i686*
+rpm -Uvh libaio-devel-0*i686*
+rpm -Uvh libgcc-4*x86_64*
+rpm -Uvh libgcc-4*i686*
+rpm -Uvh libstdc++-4*x86_64*
+rpm -Uvh libstdc++-4*i686*
+rpm -Uvh libstdc++-devel-4*x86_64*
+rpm -Uvh make-3.81*x86_64*
+```
+Kiểm tra xem gói đã được cài đặt hay chưa:
+```
+yum list | grep dtrace-modules
+```
+Tạo groups và users mới.
+```
+groupadd -g 54321 oinstall
+groupadd -g 54322 dba
+groupadd -g 54323 oper
+groupadd -g 54324 backupdba
+groupadd -g 54325 dgdba
+groupadd -g 54326 kmdba
+groupadd -g 54327 asmdba
+groupadd -g 54328 asmoper
+groupadd -g 54329 asmadmin
+groupadd -g 54330 racdba
+
+useradd -u 54321 -g oinstall -G dba,oper oracle
+```
+
+### Các thiết lập khác
+Thiết lập mật khẩu cho “oracle” user
+```
+passwd oracle
+```
+Đặt secure Linux thành `disabled` bằng cách chỉnh sửa tệp "/etc/selinux/config":
+```
+SELINUX=disabled
+```
+Nếu Linux firewall được kích hoạt, ta cần vô hiệu hóa hoặc cấu hình lại nó. Để vô hiệu hóa nó, thực thi câu lệnh.
+```
+systemctl stop firewalld
+systemctl disable firewalld
+```
+Tạo các thư mục khác mà Oracle Database sẽ được cài đặt.
+```
+mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1
+mkdir -p /u02/data #Lưu datafile
+mkdir -p /u02/fra #Lưu archive log
+mkdir -p /u02/backup #Thao tác backup
+chown -R oracle:oinstall /u01 /u02
+chmod -R 775 /u01 /u02
+```
+> Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle"
+Đăng nhập user "oracle" từ "root" 
+```
+su - oracle
+```
+Tạo script setup biến môi trường cho Oracle Database
+```
+cat > /home/oracle/scripts/setEnv.sh <<EOF
+# Oracle Settings
+export ORACLE_HOSTNAME=rabbit
+export ORACLE_UNQNAME=orclcdb
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=\$ORACLE_BASE/product/19.0.0/dbhome_1
+export ORA_INVENTORY=/u01/app/oraInventory
+export ORACLE_SID=orclcdb
+export PDB_NAME=orclpdb
+export DATA_DIR=/u02/oradata
+
+export PATH=/usr/sbin:/usr/local/bin:\$PATH
+export PATH=\$ORACLE_HOME/bin:\$PATH
+
+export LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/lib:/usr/lib
+export CLASSPATH=\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
+EOF
+```
+Thêm một tham chiếu đến tệp “setEnv.sh” vào cuối của tệp “/home/oracle/.bash_profile”.
+```
+echo ". /home/oracle/scripts/setEnv.sh" >> /home/oracle/.bash_profile
+```
+Reboot lại server sau khi đã hoàn thành thiết lập
+```
+reboot
+```
+# II. Tiến hành cài đặt Oracle Database
+Sau khi reboot xong, ta sẽ thực hiện cài đặt qua ssh bằng tool xshell
+> Lưu ý: để có thể cài đặt tương tác GUI cần ssh trực tiếp đến user `oracle`
+
+```
+cd $ORACLE_HOME
+# Or
+cd /u01/app/oracle/product/19.0.0/dbhome_1
+
+# Unzip software.
+mv /Downloads/LINUX.X64_193000_db_home.zip /u01/app/oracle/product/19.0.0/dbhome_1
+unzip -oq LINUX.X64_193000_db_home.zip
+
+# Interactive mode.
+./runInstaller
+```
+
+Chọn `Set Up Software Only` và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/1.png)
+Chọn `Single instance database installation` và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/2.png)
+Chọn `Enterprise Edition` và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/3.png)
+Thiết lập đường dẫn đến thư mục `/u01/app/orcale` nơi đặt các tệp phần mềm và cấu hình liên quan và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/4.png)
+Chọn đường dẫn đến thư mục `/u01/oraIventory` để lưu những tệp metadata cho cơ sở dữ liệu và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/5.png)
+Lựa chọn theo hình dưới và nhấn `Next`
+![](/images/cai-dat-csdl-oracle-19c/6.png)
+![](/images/cai-dat-csdl-oracle-19c/7.png)
+Hệ thống đang kiểm tra các điều kiện để cài đặt.
+![](/images/cai-dat-csdl-oracle-19c/8.png)
+Thông tin chi tiết, tổng quan về việc cài đặt, nhấn `Install` để tiến hành quá trình cài đặt
+![](/images/cai-dat-csdl-oracle-19c/9.png)
+![](/images/cai-dat-csdl-oracle-19c/10.png)
+Chạy các scripts trong thông báo sau khi cài đặt hoàn tất.
+![](/images/cai-dat-csdl-oracle-19c/11.png)
+Nhấn `close` để hoàn tất quá trình cài đặt
+![](/images/cai-dat-csdl-oracle-19c/12.png)
+
+## Khởi tạo database với GUI
+Để tạo một database, đăng nhập oracle user, chạy tệp bash `.bash_profile` thiết lập biến môi trường
+```
+[oracle@rabbit ~]$ . .bash_profile
+```
+Chạy câu lệnh để hiển thị GUI Database Configuration Assistant để quản lý cơ sở dữ liệu:
+```
+[oracle@rabbit ~]$ dbca
+```
+![](/images/cai-dat-csdl-oracle-19c/13.png)
+![](/images/cai-dat-csdl-oracle-19c/14.png)
+![](/images/cai-dat-csdl-oracle-19c/15.png)
+![](/images/cai-dat-csdl-oracle-19c/16.png)
+![](/images/cai-dat-csdl-oracle-19c/17.png)
+![](/images/cai-dat-csdl-oracle-19c/18.png)
+![](/images/cai-dat-csdl-oracle-19c/19.png)
+![](/images/cai-dat-csdl-oracle-19c/20.png)
+![](/images/cai-dat-csdl-oracle-19c/21.png)
+![](/images/cai-dat-csdl-oracle-19c/22.png)
+![](/images/cai-dat-csdl-oracle-19c/23.png)
+![](/images/cai-dat-csdl-oracle-19c/24.png)
+![](/images/cai-dat-csdl-oracle-19c/25.png)
+![](/images/cai-dat-csdl-oracle-19c/26.png)
+![](/images/cai-dat-csdl-oracle-19c/27.png)
+![](/images/cai-dat-csdl-oracle-19c/28.png)
+![](/images/cai-dat-csdl-oracle-19c/29.png)
+![](/images/cai-dat-csdl-oracle-19c/30.png)
+![](/images/cai-dat-csdl-oracle-19c/31.png)
+
+## Khởi tạo database Silent
+
+```
+dbca -silent  -createDatabase                                                                            \
+-gdbname "${ORACLE_GDB}" -sid "${ORACLE_SID}" -templateName General_Purpose.dbc -responseFile NO_VALUE   \
+-databaseConfigType SI                                                                                   \
+-createAsContainerDatabase false                                                                         \
+-sysPassword "<your_password>"                                                                                 \
+-systemPassword "<your_password>"                                                                              \
+-datafileDestination "${DATA_DIR}"                                                                       \
+-recoveryAreaDestination "${FRA_DIR}"                                                                    \
+-enableArchive true                                                                                      \
+-storageType FS                                                                                          \
+-characterSet AL32UTF8                                                                                   \
+-nationalCharacterSet AL16UTF16                                                                          \
+-redoLogFileSize 200                                                                                     \
+-totalMemory 2300                                                                                        \
+-memoryMgmtType AUTO_SGA                                                                                 \
+-sampleSchema true                                                                                       \
+-databaseType MULTIPURPOSE                                                                               \
+-initParams nls_language=AMERICAN,log_archive_format=%t_%s_%r.dbf                                        \
+-createListener LISTENER:1521                                                                            \
+-emConfiguration NONE                                                                                    \
+-ignorePreReqs
+
+```
+Khởi động database
+```
+[oracle@rabbit ~]$ sql / as sysdba
+
+SQLcl: Release 19.1 Production on Thu Jul 15 02:05:38 2021
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.3.0.0.0
+
+
+SQL> startup
+ORACLE instance started.
+Total System Global Area   2415918568 bytes      
+Fixed Size                    9137640 bytes      
+Variable Size               520093696 bytes      
+Database Buffers           1879048192 bytes      
+Redo Buffers                  7639040 bytes      
+Database mounted.
+Database opened.
+//database đã khởi chạy thành công
+```
+Chạy listener để có thể truy cập database từ phía client, đăng nhập oracle user chạy:
+```
+lsnrctl start
+```
+
+Sau đó ta có thể sử dụng các tool để kết nối và sử dụng Oracle Database.
