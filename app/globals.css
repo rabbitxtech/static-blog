@@ -464,9 +464,14 @@ article p {
 
 article blockquote {
 	margin: 0;
-	padding: 0 1em;
-	color: #8b949e;
-	border-left: 0.25em solid #30363d;
+	padding: 1em 1em;
+	border-left: 0.25em solid #58a6ff;
+	background: #cccccc;
+}
+
+.dark article blockquote {
+	background: #3a3a3a;
+	border-color: #2563eb;
 }
 
 article.main ul,
@@ -474,7 +479,7 @@ article.main ol {
 	margin-top: 0;
 	margin-bottom: 0;
 	padding-left: 2em;
-	list-style-type: initial;
+	list-style-type: disc;
 }
 
 article.main ol ol,
