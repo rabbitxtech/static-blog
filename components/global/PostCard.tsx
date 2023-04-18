@@ -16,6 +16,7 @@ const PostCard = (post: PostMeta) => {
 						height={500}
 						alt=""
 						className="max-w-[200px] max-h-[250px] min-h-[140px] mr-4 max-sm:max-w-full max-sm:w-full max-sm:mb-4"
+						loading='eager'
 					/>
 				</Link>
 				<div className="flex flex-col justify-between">
