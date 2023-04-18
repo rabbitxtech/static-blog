@@ -131,7 +131,7 @@ targetcli # ACFS
 smartmontools
 sysstat
 ```
-Đảm bảo đĩa Oracle linux 7 đã được mount, cài đặt các từ đĩa
+Đảm bảo đĩa Oracle linux 7 đã được mount, cài đặt các package từ đĩa
 ```
 rpm -Uvh <tên gói rpm>
 
@@ -206,7 +206,7 @@ mkdir -p /u02/backup #Thao tác backup
 chown -R oracle:oinstall /u01 /u02
 chmod -R 775 /u01 /u02
 ```
-> Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle"
+> Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle" 
 Đăng nhập user "oracle" từ "root" 
 ```
 su - oracle
@@ -297,6 +297,21 @@ Chạy câu lệnh để hiển thị GUI Database Configuration Assistant để
 ![](/images/cai-dat-csdl-oracle-19c/19.png)
 ![](/images/cai-dat-csdl-oracle-19c/20.png)
 ![](/images/cai-dat-csdl-oracle-19c/21.png)
+Oracle recommend 20% Mem cho hệ thống, phần còn lại chia 20% cho PGA và 80% cho SGA đối với các hệ thống thông thường
+
+<blockquote>
+To set the initial value for `PGA_AGGREGATE_TARGET`:
+1. Determine how much of the total physical memory to reserve for the operating system and other non-Oracle applications running on the same system.
+For example, you might decide to reserve 20% of the total physical memory for the operating system and other non-Oracle applications, dedicating 80% of the memory on the system to the Oracle database instance.
+2. Divide the remaining available memory between the SGA and the PGA:
+    - For OLTP systems, the PGA memory typically makes up a small fraction of the available memory, leaving most of the remaining memory for the SGA.
+Oracle recommends initially dedicating 20% of the available memory to the PGA, and 80% to the SGA. Therefore, the initial value of the `PGA_AGGREGATE_TARGET` parameter for an OLTP system can be calculated as:
+`PGA_AGGREGATE_TARGET` = (total_mem * 0.8) * 0.2 where total_mem is the total amount of physical memory available on the system.
+    - For DSS systems running large, memory-intensive queries, PGA memory can typically use up to 70% of the available memory.
+Oracle recommends initially dedicating 50% of the available memory to the PGA, and 50% to the SGA. Therefore, the initial value of the `PGA_AGGREGATE_TARGET` parameter for a DSS system can be calculated as:
+`PGA_AGGREGATE_TARGET` = (total_mem * 0.8) * 0.5 where total_mem is the total amount of physical memory available on the system.
+For example, if an Oracle database instance is configured to run on a system with 4 GB of physical memory, and if 80% (or 3.2 GB) of the memory is dedicated to the Oracle database instance, then initially set `PGA_AGGREGATE_TARGET` to 640 MB for an OLTP system, or 1,600 MB for a DSS system.
+</blockquote>
 ![](/images/cai-dat-csdl-oracle-19c/22.png)
 ![](/images/cai-dat-csdl-oracle-19c/23.png)
 ![](/images/cai-dat-csdl-oracle-19c/24.png)
@@ -356,6 +371,7 @@ Database Buffers           1879048192 bytes
 Redo Buffers                  7639040 bytes      
 Database mounted.
 Database opened.
+
 //database đã khởi chạy thành công
 ```
 Chạy listener để có thể truy cập database từ phía client, đăng nhập oracle user chạy:
@@ -364,3 +380,72 @@ lsnrctl start
 ```
 
 Sau đó ta có thể sử dụng các tool để kết nối và sử dụng Oracle Database.
+
+# III. Tự động startup database
+Đăng nhập server bằng user "oracle"
+Sửa file “/etc/oratab” chuyển các cờ cho instance về “Y”:
+```
+orclcdb:/u01/app/oracle/product/19.0.0.0/dbhome_1:Y
+```
+Tạo file `start_all.sh` và `stop_all.sh` bằng câu lệnh
+```
+cat > /home/oracle/scripts/start_all.sh <<EOF
+#!/bin/bash
+. /home/oracle/scripts/setEnv.sh
+
+export ORAENV_ASK=NO
+. oraenv
+export ORAENV_ASK=YES
+
+dbstart \$ORACLE_HOME
+EOF
+
+
+cat > /home/oracle/scripts/stop_all.sh <<EOF
+#!/bin/bash
+. /home/oracle/scripts/setEnv.sh
+
+export ORAENV_ASK=NO
+. oraenv
+export ORAENV_ASK=YES
+
+dbshut \$ORACLE_HOME
+EOF
+
+//Gán quyền thực thi scripts
+chmod u+x /home/oracle/*.sh
+```
+Tạo một service để tự động start/stop Oracle Database, tạo service file `/lib/systemd/system/dbora.service` có nội dung.
+> Cần sử dụng user root or user sudo
+```
+[Unit]
+Description=The Oracle Database Service
+After=syslog.target network.target
+
+[Service]
+LimitMEMLOCK=infinity
+LimitNOFILE=65535
+RemainAfterExit=yes
+User=oracle
+Group=oinstall
+Restart=no
+ExecStart=/bin/bash -c '/home/oracle/start_all.sh'
+ExecStop=/bin/bash -c '/home/oracle/stop_all.sh'
+
+[Install]
+WantedBy=multi-user.target
+```
+Reload lại `systemd` để apply service mới
+```
+systemctl daemon-reload
+```
+Start service và enable để nó tự động khởi động lại sau khi reboot
+
+```
+systemctl start dbora.service
+systemctl enable dbora.service
+```
+
+Tham khảo thêm:
+- https://oracle-base.com/articles/19c/oracle-db-19c-installation-on-oracle-linux-7
+- https://oracle-base.com/articles/linux/automating-database-startup-and-shutdown-on-linux
