@@ -203,8 +203,12 @@ article [hidden] {
 
 article a {
 	background-color: transparent;
-	color: #58a6ff;
+	color: #2563eb;
 	text-decoration: none;
+}
+
+.dark article a {
+	color: #58a6ff;
 }
 
 article abbr[title] {
