@@ -4,7 +4,6 @@ date: 2023-04-13 10:01:00
 tags:
     - title: database
     - title: oracle
-    - title: setup
     - title: linux
 description: Hướng dẫn cài đặt cơ sở dữ liệu oracle 19c trên linux
 thumbnail: /images/cai-dat-csdl-oracle-19c/thumbnail.webp
@@ -13,28 +12,31 @@ thumbnail: /images/cai-dat-csdl-oracle-19c/thumbnail.webp
 ![](/images/cai-dat-csdl-oracle-19c/thumbnail.webp)
 
 Oracle Database là một hệ thống CSDL quan hệ, đa mô hình được tạo ra bởi tập đoàn Oracle. Đây là một CSDL thường đươc sử dụng
-để chạy `online transaction processing` (OLTP), `data warehousing` (DW) hoặc chạy đồng thời OLTP và DW. Oracle database có thể được 
+để chạy `online transaction processing` (OLTP), `data warehousing` (DW) hoặc chạy đồng thời OLTP và DW. Oracle database có thể được
 triển khai `on-prem`, `on-cloud`, hoặc `hybrid cloud`
 
 # I. Chuẩn bị cài đặt
+
 ## I.1 Hệ thống và gói cài đặt
 
-- Hệ điều hành: <span className="text-blue-600 dark:text-sky-500">Oracle Linux 7.9</span>
+-   Hệ điều hành: <span className="text-blue-600 dark:text-sky-500">Oracle Linux 7.9</span>
 
-- Oracle Database 19c (19.3) for Linux x86-64: <span className="text-blue-600 dark:text-sky-500">LINUX.X64_193000_db_home.zip</span>
+-   Oracle Database 19c (19.3) for Linux x86-64: <span className="text-blue-600 dark:text-sky-500">LINUX.X64_193000_db_home.zip</span>
 
 Có thể download bản cài đặt tại:
-- https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html
-- https://edelivery.oracle.com
+
+-   https://www.oracle.com/database/technologies/oracle19c-linux-downloads.html
+-   https://edelivery.oracle.com
 
 ## I.2 Thiết lập môi trường cài đặt
 
 ### Chỉnh sửa file /etc/host và /etc/hostname
+
 ```
 # Chỉnh sửa /etc/host
-# <Địa chỉ IP>  <Tên máy đầy đủ hợp lệ>  <Tên máy>   
+# <Địa chỉ IP>  <Tên máy đầy đủ hợp lệ>  <Tên máy>
 127.0.0.1      localhost                localhost.localdomain   localhost4   localhost4.localdomian4
-10.0.2.15      rabbit                   rabbit.localdomain      rabbit 
+10.0.2.15      rabbit                   rabbit.localdomain      rabbit
 
 # Chỉnh sửa /etc/hostname
 rabbit
@@ -42,7 +44,7 @@ rabbit
 
 ### Cài đặt các package cần thiết và thiết lập môi trường
 
-- Thiết lập tự động
+-   Thiết lập tự động
 
 Sử dụng gói “oracle-database-preinstall-19c” để thực hiện cài đặt tất cả thiết lập cần thiết, thực thi lệnh.
 
@@ -50,7 +52,7 @@ Sử dụng gói “oracle-database-preinstall-19c” để thực hiện cài �
 yum install -y oracle-database-preinstall-19c
 ```
 
-- Thiết lập thủ công
+-   Thiết lập thủ công
 
 Vì tính bảo mật nên nhiều công ty sẽ yêu cài đặt Offline không sử dụng gói “oracle-database-preinstall-19c”, để thực hiện cài đặt ta cần thực hiện cài đặt như sau
 
@@ -72,12 +74,15 @@ net.ipv4.conf.default.rp_filter = 2
 fs.aio-max-nr = 1048576
 net.ipv4.ip_local_port_range = 9000 65500
 ```
+
 Chạy một trong hai lệnh sau để xem thay đổi các tham số của kernel, sau khi đã chỉnh sửa.
+
 ```
 /sbin/sysctl -p
 # Or
 /sbin/sysctl -p /etc/sysctl.d/98-oracle.conf
 ```
+
 Thêm các dòng sau vào tệp "/etc/security/limits.d/oracle-database-preinstall-19c.conf"
 
 ```
@@ -90,9 +95,11 @@ oracle   hard   stack    32768
 oracle   hard   memlock    134217728
 oracle   soft   memlock    134217728
 ```
+
 Các gói cần thiết để cài đặt oracle database 19c, có nhiều gói đã đc cài đặt sẵn:
+
 ```
-bc    
+bc
 binutils
 compat-libcap1
 compat-libstdc++-33
@@ -131,7 +138,9 @@ targetcli # ACFS
 smartmontools
 sysstat
 ```
+
 Đảm bảo đĩa Oracle linux 7 đã được mount, cài đặt các package từ đĩa
+
 ```
 rpm -Uvh <tên gói rpm>
 
@@ -148,7 +157,7 @@ rpm -Uvh elfutils-libelf-devel-0*x86_64*
 rpm -Uvh mpfr-2.4.1-6.el6.x86_64*
 rpm -Uvh cpp-4.4.7-17.el6.x86_64*
 rpm -Uvh ppl-0.10.2-11.el6.x86_64*
-rpm -Uvh cloog-ppl-0.15.7-1.2.el6.x86_64* 
+rpm -Uvh cloog-ppl-0.15.7-1.2.el6.x86_64*
 rpm -Uvh gcc-4*x86_64*
 rpm -Uvh gcc-c++-4*x86_64*
 rpm -Uvh ksh-*x86_64*
@@ -163,11 +172,15 @@ rpm -Uvh libstdc++-4*i686*
 rpm -Uvh libstdc++-devel-4*x86_64*
 rpm -Uvh make-3.81*x86_64*
 ```
+
 Kiểm tra xem gói đã được cài đặt hay chưa:
+
 ```
 yum list | grep dtrace-modules
 ```
+
 Tạo groups và users mới.
+
 ```
 groupadd -g 54321 oinstall
 groupadd -g 54322 dba
@@ -184,20 +197,28 @@ useradd -u 54321 -g oinstall -G dba,oper oracle
 ```
 
 ### Các thiết lập khác
+
 Thiết lập mật khẩu cho “oracle” user
+
 ```
 passwd oracle
 ```
+
 Đặt secure Linux thành `disabled` bằng cách chỉnh sửa tệp "/etc/selinux/config":
+
 ```
 SELINUX=disabled
 ```
+
 Nếu Linux firewall được kích hoạt, ta cần vô hiệu hóa hoặc cấu hình lại nó. Để vô hiệu hóa nó, thực thi câu lệnh.
+
 ```
 systemctl stop firewalld
 systemctl disable firewalld
 ```
+
 Tạo các thư mục khác mà Oracle Database sẽ được cài đặt.
+
 ```
 mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1
 mkdir -p /u02/data #Lưu datafile
@@ -206,12 +227,16 @@ mkdir -p /u02/backup #Thao tác backup
 chown -R oracle:oinstall /u01 /u02
 chmod -R 775 /u01 /u02
 ```
-> Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle" 
-Đăng nhập user "oracle" từ "root" 
+
+> Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle"
+> Đăng nhập user "oracle" từ "root"
+
 ```
 su - oracle
 ```
+
 Tạo script setup biến môi trường cho Oracle Database
+
 ```
 cat > /home/oracle/scripts/setEnv.sh <<EOF
 # Oracle Settings
@@ -231,17 +256,24 @@ export LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/lib:/usr/lib
 export CLASSPATH=\$ORACLE_HOME/jlib:\$ORACLE_HOME/rdbms/jlib
 EOF
 ```
+
 Thêm một tham chiếu đến tệp “setEnv.sh” vào cuối của tệp “/home/oracle/.bash_profile”.
+
 ```
 echo ". /home/oracle/scripts/setEnv.sh" >> /home/oracle/.bash_profile
 ```
+
 Reboot lại server sau khi đã hoàn thành thiết lập
+
 ```
 reboot
 ```
+
 # II. Tiến hành cài đặt Oracle Database
+## II.1. Cài đặt Oracle Database software
 Sau khi reboot xong, ta sẽ thực hiện cài đặt qua ssh bằng tool xshell
-> Lưu ý: để có thể cài đặt tương tác GUI cần ssh trực tiếp đến user `oracle`
+
+> Lưu ý: để có thể cài đặt tương tác GUI cần ssh trực tiếp đến user `oracle`, đảm bảo server đã cài đặt `x11 Forwarding`
 
 ```
 cd $ORACLE_HOME
@@ -279,51 +311,49 @@ Chạy các scripts trong thông báo sau khi cài đặt hoàn tất.
 Nhấn `close` để hoàn tất quá trình cài đặt
 ![](/images/cai-dat-csdl-oracle-19c/12.png)
 
-## Khởi tạo database với GUI
+## II.2 Khởi tạo database với GUI
+
 Để tạo một database, đăng nhập oracle user, chạy tệp bash `.bash_profile` thiết lập biến môi trường
+
 ```
 [oracle@rabbit ~]$ . .bash_profile
 ```
+
 Chạy câu lệnh để hiển thị GUI Database Configuration Assistant để quản lý cơ sở dữ liệu:
+
 ```
 [oracle@rabbit ~]$ dbca
 ```
+Tích chọn `Create a database` và nhấn `Next`
 ![](/images/cai-dat-csdl-oracle-19c/13.png)
+Nhấn `Next`
 ![](/images/cai-dat-csdl-oracle-19c/14.png)
+Mục `Database type` Chọn `Oracle Single Instance database`,  chọn template `General Perpose or Transaction Processing` nhấn `Next`
 ![](/images/cai-dat-csdl-oracle-19c/15.png)
+Điền `Global database name` và `SID` để kết nối đến database
+
+> Lưu ý: SID phải trung với biến môi trường `ORACLE_SID` ở trên
+
 ![](/images/cai-dat-csdl-oracle-19c/16.png)
+Chọn nơi lưu trữ datafile `Database files localtion`, thay đổi định dạng tên hoặc thêm redo logs, control file chọn `Multiplex redo logs and controls file` 
+xem các giá trị biến chọn `File location varriables` và nhấn `Next` để tiếp tục
 ![](/images/cai-dat-csdl-oracle-19c/17.png)
+Kích hoạt Fast Recovery, `Recovery files storage type` Chọn loại file hoặc để mặc định,  `Fase Recovery Area` chọn khu vực lưu recovery files,
+`Fase Recovery Area size` thiết lập độ lớn file, tích chọn `Enable archiving` hỗ trợ việc backup data sau này, `Edit archive mode parameters ...` setup tên định
+dạng của archive log file và vị trí lưu file 
 ![](/images/cai-dat-csdl-oracle-19c/18.png)
 ![](/images/cai-dat-csdl-oracle-19c/19.png)
+Tích chọn `Create a new listener` và điền thông tin như hình, tạo một listener để có thể kết nối database từ client
 ![](/images/cai-dat-csdl-oracle-19c/20.png)
 ![](/images/cai-dat-csdl-oracle-19c/21.png)
 Oracle recommend 20% Mem cho hệ thống, phần còn lại chia 20% cho PGA và 80% cho SGA đối với các hệ thống thông thường
+![](/images/cai-dat-csdl-oracle-19c/22.png) ![](/images/cai-dat-csdl-oracle-19c/23.png)
+![](/images/cai-dat-csdl-oracle-19c/24.png) ![](/images/cai-dat-csdl-oracle-19c/25.png)
+![](/images/cai-dat-csdl-oracle-19c/26.png) ![](/images/cai-dat-csdl-oracle-19c/27.png)
+![](/images/cai-dat-csdl-oracle-19c/28.png) ![](/images/cai-dat-csdl-oracle-19c/29.png)
+![](/images/cai-dat-csdl-oracle-19c/30.png) ![](/images/cai-dat-csdl-oracle-19c/31.png)
 
-<blockquote>
-To set the initial value for `PGA_AGGREGATE_TARGET`:
-1. Determine how much of the total physical memory to reserve for the operating system and other non-Oracle applications running on the same system.
-For example, you might decide to reserve 20% of the total physical memory for the operating system and other non-Oracle applications, dedicating 80% of the memory on the system to the Oracle database instance.
-2. Divide the remaining available memory between the SGA and the PGA:
-    - For OLTP systems, the PGA memory typically makes up a small fraction of the available memory, leaving most of the remaining memory for the SGA.
-Oracle recommends initially dedicating 20% of the available memory to the PGA, and 80% to the SGA. Therefore, the initial value of the `PGA_AGGREGATE_TARGET` parameter for an OLTP system can be calculated as:
-`PGA_AGGREGATE_TARGET` = (total_mem * 0.8) * 0.2 where total_mem is the total amount of physical memory available on the system.
-    - For DSS systems running large, memory-intensive queries, PGA memory can typically use up to 70% of the available memory.
-Oracle recommends initially dedicating 50% of the available memory to the PGA, and 50% to the SGA. Therefore, the initial value of the `PGA_AGGREGATE_TARGET` parameter for a DSS system can be calculated as:
-`PGA_AGGREGATE_TARGET` = (total_mem * 0.8) * 0.5 where total_mem is the total amount of physical memory available on the system.
-For example, if an Oracle database instance is configured to run on a system with 4 GB of physical memory, and if 80% (or 3.2 GB) of the memory is dedicated to the Oracle database instance, then initially set `PGA_AGGREGATE_TARGET` to 640 MB for an OLTP system, or 1,600 MB for a DSS system.
-</blockquote>
-![](/images/cai-dat-csdl-oracle-19c/22.png)
-![](/images/cai-dat-csdl-oracle-19c/23.png)
-![](/images/cai-dat-csdl-oracle-19c/24.png)
-![](/images/cai-dat-csdl-oracle-19c/25.png)
-![](/images/cai-dat-csdl-oracle-19c/26.png)
-![](/images/cai-dat-csdl-oracle-19c/27.png)
-![](/images/cai-dat-csdl-oracle-19c/28.png)
-![](/images/cai-dat-csdl-oracle-19c/29.png)
-![](/images/cai-dat-csdl-oracle-19c/30.png)
-![](/images/cai-dat-csdl-oracle-19c/31.png)
-
-## Khởi tạo database Silent
+## II.3 Khởi tạo database silent
 
 ```
 dbca -silent  -createDatabase                                                                            \
@@ -349,7 +379,9 @@ dbca -silent  -createDatabase                                                   
 -ignorePreReqs
 
 ```
+
 Khởi động database
+
 ```
 [oracle@rabbit ~]$ sql / as sysdba
 
@@ -364,17 +396,19 @@ Version 19.3.0.0.0
 
 SQL> startup
 ORACLE instance started.
-Total System Global Area   2415918568 bytes      
-Fixed Size                    9137640 bytes      
-Variable Size               520093696 bytes      
-Database Buffers           1879048192 bytes      
-Redo Buffers                  7639040 bytes      
+Total System Global Area   2415918568 bytes
+Fixed Size                    9137640 bytes
+Variable Size               520093696 bytes
+Database Buffers           1879048192 bytes
+Redo Buffers                  7639040 bytes
 Database mounted.
 Database opened.
 
 //database đã khởi chạy thành công
 ```
+
 Chạy listener để có thể truy cập database từ phía client, đăng nhập oracle user chạy:
+
 ```
 lsnrctl start
 ```
@@ -382,12 +416,16 @@ lsnrctl start
 Sau đó ta có thể sử dụng các tool để kết nối và sử dụng Oracle Database.
 
 # III. Tự động startup database
+
 Đăng nhập server bằng user "oracle"
 Sửa file “/etc/oratab” chuyển các cờ cho instance về “Y”:
+
 ```
 orclcdb:/u01/app/oracle/product/19.0.0.0/dbhome_1:Y
 ```
+
 Tạo file `start_all.sh` và `stop_all.sh` bằng câu lệnh
+
 ```
 cat > /home/oracle/scripts/start_all.sh <<EOF
 #!/bin/bash
@@ -415,8 +453,11 @@ EOF
 //Gán quyền thực thi scripts
 chmod u+x /home/oracle/*.sh
 ```
+
 Tạo một service để tự động start/stop Oracle Database, tạo service file `/lib/systemd/system/dbora.service` có nội dung.
+
 > Cần sử dụng user root or user sudo
+
 ```
 [Unit]
 Description=The Oracle Database Service
@@ -435,10 +476,13 @@ ExecStop=/bin/bash -c '/home/oracle/stop_all.sh'
 [Install]
 WantedBy=multi-user.target
 ```
+
 Reload lại `systemd` để apply service mới
+
 ```
 systemctl daemon-reload
 ```
+
 Start service và enable để nó tự động khởi động lại sau khi reboot
 
 ```
@@ -447,5 +491,6 @@ systemctl enable dbora.service
 ```
 
 Tham khảo thêm:
-- https://oracle-base.com/articles/19c/oracle-db-19c-installation-on-oracle-linux-7
-- https://oracle-base.com/articles/linux/automating-database-startup-and-shutdown-on-linux
+
+-   https://oracle-base.com/articles/19c/oracle-db-19c-installation-on-oracle-linux-7
+-   https://oracle-base.com/articles/linux/automating-database-startup-and-shutdown-on-linux
