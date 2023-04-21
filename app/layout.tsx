@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/next-script-for-ga */
 import './globals.css'
 import '@code-hike/mdx/dist/index.css'
 import 'tocbot/dist/tocbot.css'
 import { NavBar, Footer } from '@/components/global'
+import Script from 'next/script'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
@@ -84,6 +86,21 @@ export default function RootLayout({
 							  document.documentElement.classList.remove('dark')
 							}
 						  } catch (_) {}
+					`
+					}}
+				/>
+				<script
+					async
+					src="https://www.googletagmanager.com/gtag/js?id=G-DJKFB8RH4N"
+				/>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+					  
+						gtag('config', 'G-DJKFB8RH4N');
 					`
 					}}
 				/>
