@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/next-script-for-ga */
 import './globals.css'
 import '@code-hike/mdx/dist/index.css'
 import 'tocbot/dist/tocbot.css'
@@ -89,11 +88,12 @@ export default function RootLayout({
 					`
 					}}
 				/>
-				<script
+				<Script
 					async
 					src="https://www.googletagmanager.com/gtag/js?id=G-DJKFB8RH4N"
 				/>
-				<script
+				<Script
+					id="google-tag-manager"
 					dangerouslySetInnerHTML={{
 						__html: `
 						window.dataLayer = window.dataLayer || [];
