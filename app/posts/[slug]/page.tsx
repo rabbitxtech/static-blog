@@ -182,7 +182,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 			>
 				<article className="main w-3/4 max-md:w-full">
 					<div className="js-toc-content px-8 max-sm:px-4">
-						<img src={post.thumbnail} className="max-w-full m-auto my-3"/>
+						<img src={post.thumbnail} alt="Featured image" className="max-w-full m-auto my-3"/>
 						<MDXContent post={post} />
 						<Comment />
 					</div>
