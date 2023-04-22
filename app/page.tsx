@@ -19,8 +19,10 @@ const Page = () => {
 						src={rabbitAstronaut}
 						alt="rabbit astronaut"
 						width={400}
+						height={400}
 						className="m-auto"
 						loading="eager"
+						priority
 					></Image>
 					<div className="font-handwritten font-semibold text-3xl text-center mb-3">
 						My name&apos;s Nguyen Dong Anh, I&apos;m Data Engineer
