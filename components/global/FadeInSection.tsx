@@ -1,17 +1,16 @@
 'use client'
 
-import React, { HTMLProps } from 'react'
+import React, { useState, HTMLProps } from 'react'
 
 const FadeInSection: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
+	const [isVisible, setVisible] = useState<boolean>(true)
 	const domRef = React.useRef<HTMLDivElement>(null)
 	React.useEffect(() => {
 		const observer = new IntersectionObserver((entries, observer) => {
 			entries.forEach((entry) => {
+				setVisible(entry.isIntersecting)
 				if (entry.isIntersecting) {
-					if (domRef.current) {
-						domRef.current?.classList.add('is-visible')
-						observer.unobserve(domRef.current)
-					}
+					observer.unobserve(entry.target)
 				}
 			})
 		})
@@ -21,7 +20,10 @@ const FadeInSection: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
 		}
 	}, [])
 	return (
-		<div className={'fade-in-section'} ref={domRef}>
+		<div
+			className={`fade-in-section ${isVisible ? 'is-visible' : ''}`}
+			ref={domRef}
+		>
 			{props.children}
 		</div>
 	)
