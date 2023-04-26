@@ -6,8 +6,12 @@ const nextConfig = {
 	// reactStrictMode: true,
 	experimental: {
 		appDir: true,
-		optimizeCss: true
-		// typedRoutes: true
+		optimizeCss: true,
+		serverComponentsExternalPackages: ['mongoose']
+	},
+	webpack(config) {
+		config.experiments = { ...config.experiments, topLevelAwait: true }
+		return config
 	}
 }
 
