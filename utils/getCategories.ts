@@ -1,7 +1,5 @@
-import { use } from "react";
 import { Post, allPosts } from "@/.contentlayer/generated";
 import { getNormalSlug } from "./getTexts";
-import { PostMeta } from "./getPosts";
 
 export type PageProps = {
     params?: any;
