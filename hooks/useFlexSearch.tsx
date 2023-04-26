@@ -30,7 +30,8 @@ const useFlexSearch = ({
 					'readingTime',
 					'tags',
 					'url',
-					'thumbnail'
+					'thumbnail',
+					'slug'
 				]
 			}
 		})
