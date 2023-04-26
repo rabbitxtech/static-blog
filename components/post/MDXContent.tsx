@@ -4,6 +4,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 import { Post } from '@/.contentlayer/generated'
 import MDXHeadings from './MDXHeadings'
 import MDXImage from './MDXImage'
+import MDXLink from './MDXLink'
 
 const MDXContent = ({ post }: { post: Post }) => {
 	const Content = useMDXComponent(post.body.code)
@@ -28,7 +29,8 @@ const MDXContent = ({ post }: { post: Post }) => {
 				h6: (props: any) => (
 					<MDXHeadings {...props} headingLevel="h6" />
 				),
-				img: (props: any) => <MDXImage {...props} />
+				img: (props: any) => <MDXImage {...props} />,
+				a: (props: any) => <MDXLink {...props} />
 			}}
 		/>
 	)
