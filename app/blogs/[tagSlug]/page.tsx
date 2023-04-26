@@ -82,7 +82,7 @@ export const generateMetadata = ({
 				canonical: `${BASE_URL}/blogs/${params.tagSlug}`,
 				languages: { 'vi-VN': `${BASE_URL}/blogs/${params.tagSlug}` },
 				types: {
-					'application/rss+xml': [{ url: 'rss.xml', title: 'rss' }]
+					'application/rss+xml': [{ url: '/rss.xml', title: 'rss' }]
 				}
 			},
 			keywords: params.tagSlug

@@ -61,7 +61,7 @@ export const metadata = {
 		canonical: `${BASE_URL}/blogs`,
 		languages: { 'vi-VN': `${BASE_URL}/blogs` },
 		types: {
-			'application/rss+xml': [{ url: 'rss.xml', title: 'rss' }]
+			'application/rss+xml': [{ url: '/rss.xml', title: 'rss' }]
 		}
 	}
 }
