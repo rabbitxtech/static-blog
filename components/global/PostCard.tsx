@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { format, parseISO } from 'date-fns'
 import { TabNavItem } from './TabNavItem'
+import ViewsCounter from './ViewsCounter'
 import { PostMeta } from '@/utils/getPosts'
 import { getNormalSlug } from '@/utils/getTexts'
 
@@ -16,7 +17,7 @@ const PostCard = (post: PostMeta) => {
 						height={500}
 						alt=""
 						className="max-w-[200px] max-h-[250px] min-h-[140px] mr-4 max-sm:max-w-full max-sm:w-full max-sm:mb-4"
-						loading='eager'
+						loading="eager"
 					/>
 				</Link>
 				<div className="flex flex-col justify-between">
@@ -91,6 +92,7 @@ const PostCard = (post: PostMeta) => {
 							</svg>
 							<span>{post.readingTime.text}</span>
 						</div>
+						<ViewsCounter slug={post.slug} />
 					</div>
 				</div>
 			</div>
