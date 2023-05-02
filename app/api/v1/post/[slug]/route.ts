@@ -14,7 +14,7 @@ const newAndUpdateView = async (slug: string) => {
     }
 }
 
-export const countView = async (slug: string) => {
+const countView = async (slug: string) => {
     try {
         const doc = await View.findOne({ slug })
         if (doc) return doc.count
