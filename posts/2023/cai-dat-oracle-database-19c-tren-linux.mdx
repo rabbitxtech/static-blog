@@ -33,7 +33,7 @@ Có thể download bản cài đặt tại:
 # Chỉnh sửa /etc/host
 # <Địa chỉ IP>  <Tên máy đầy đủ hợp lệ>  <Tên máy>
 127.0.0.1      localhost                localhost.localdomain   localhost4   localhost4.localdomian4
-10.0.2.15      rabbit                   rabbit.localdomain      rabbit
+10.0.2.15      rabbit
 
 # Chỉnh sửa /etc/hostname
 rabbit
@@ -218,11 +218,11 @@ Tạo các thư mục khác mà Oracle Database sẽ được cài đặt.
 
 ```
 mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1
-mkdir -p /u02/data #Lưu datafile
-mkdir -p /u02/fra #Lưu archive log
-mkdir -p /u02/backup #Thao tác backup
-chown -R oracle:oinstall /u01 /u02
-chmod -R 775 /u01 /u02
+mkdir -p /data #Lưu datafile
+mkdir -p /fra #Lưu archive log
+mkdir -p /backup #Thao tác backup
+chown -R oracle:oinstall /u01 /data /fra /backup
+chmod -R 775 /u01 /data /fra /backup
 ```
 
 > Chú ý: các bước thiết lập trên cần sử dụng user: root, các bước tiếp theo sẽ sử dụng user "oracle"
