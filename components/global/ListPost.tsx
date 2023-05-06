@@ -24,7 +24,7 @@ const ListPost = ({ posts }: { posts: PostMeta[] }) => {
 				<Search onSearch={onSearch} />
 			</div>
 			{result.length === 0 && !query
-				? posts.map((post, idx) => (
+				? posts.map((post) => (
 						<FadeInSection key={post._id}>
 							<PostCard {...post} />
 						</FadeInSection>
@@ -32,7 +32,7 @@ const ListPost = ({ posts }: { posts: PostMeta[] }) => {
 				: result.find((x) => x.field === 'title') !== undefined
 				? result
 						.find((x) => x.field === 'title')
-						?.result.map((post, idx) => (
+						?.result.map((post) => (
 							<FadeInSection key={post.id}>
 								<PostCard {...post.doc} />
 							</FadeInSection>
@@ -40,7 +40,7 @@ const ListPost = ({ posts }: { posts: PostMeta[] }) => {
 				: result.find((x) => x.field === 'description') !== undefined
 				? result
 						.find((x) => x.field === 'description')
-						?.result.map((post, idx) => (
+						?.result.map((post) => (
 							<FadeInSection key={post.id}>
 								<PostCard {...post.doc} />
 							</FadeInSection>

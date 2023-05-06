@@ -1,7 +1,7 @@
 'use client'
 import React, { ChangeEvent } from 'react'
 
-const Search = ({ onSearch }: { onSearch: (e: ChangeEvent) => void }) => {
+const Search = ({ onSearch }: { onSearch: (_e: ChangeEvent) => void }) => {
 	return (
 		<div className="relative shadow-slate-200 dark:shadow-slate-800 shadow-md rounded-full w-full">
 			<span className="absolute top-[50%] translate-y-[-50%] left-4">

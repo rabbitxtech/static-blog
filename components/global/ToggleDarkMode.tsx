@@ -1,11 +1,10 @@
 'use client'
 
-import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
 const ToggleDarkMode = () => {
 	useEffect(() => {
-		window.addEventListener('storage', (e: Event) => {
+		window.addEventListener('storage', (_e: Event) => {
 			var themeName = localStorage.getItem('theme')
 			if (themeName) {
 				if (['dark', 'light', 'system'].indexOf(themeName) == -1) {
@@ -53,7 +52,7 @@ const ToggleDarkMode = () => {
 		>
 			<div
 				className="dark:top-[56px] top-0 duration-300 ease-in flex relative"
-				onClick={(e) => {
+				onClick={(_e) => {
 					document.documentElement.classList.add('dark')
 					localStorage.theme = 'dark'
 				}}
@@ -73,7 +72,7 @@ const ToggleDarkMode = () => {
 			</div>
 			<div
 				className="top-7 dark:top-[-24px] flex duration-300 ease-in relative invisible dark:visible"
-				onClick={(e) => {
+				onClick={(_e) => {
 					document.documentElement.classList.remove('dark')
 					localStorage.theme = 'light'
 				}}

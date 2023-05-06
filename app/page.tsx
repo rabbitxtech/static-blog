@@ -80,7 +80,7 @@ const Page = () => {
 					</div>
 					<div className="border-b border-zinc-300 dark:border-white/20 pb-6">
 						<div className="w-full grid grid-cols-1 mb-6">
-							{posts.map((post, idx) => (
+							{posts.map((post) => (
 								<FadeInSection key={post._id}>
 									<PostCard {...post} />
 								</FadeInSection>
