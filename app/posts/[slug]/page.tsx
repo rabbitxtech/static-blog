@@ -1,3 +1,4 @@
+import { use } from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { format, parseISO } from 'date-fns'
@@ -11,9 +12,11 @@ import {
 	Comment,
 	TabNavItem,
 	SocialShare,
-	ViewsCounter
+	ViewsCounter,
+	BookmarkButton
 } from '@/components/global'
 import { getNormalSlug } from '@/utils/getTexts'
+import { fetchAllMetaPost } from '@/utils/getPosts'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
@@ -101,7 +104,7 @@ export const generateMetadata = ({
 	return {}
 }
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = ({ params }: { params: { slug: string } }) => {
 	const post: Post | undefined = allPosts.find(
 		(post) => post._raw.sourceFileName.replace(/\.mdx/, '') === params.slug
 	)
@@ -109,6 +112,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 	if (!post) {
 		return notFound()
 	}
+	const meta = use(fetchAllMetaPost([post]))
 
 	return (
 		<>
@@ -165,7 +169,10 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 							</div>
 							<ViewsCounter slug={post.slug} update={true} />
 						</div>
-						<SocialShare />
+						<div className="flex gap-1">
+							<BookmarkButton meta={meta} />
+							<SocialShare />
+						</div>
 					</div>
 				</div>
 				<div className="flex-wrap inline-flex gap-2 mt-1">
