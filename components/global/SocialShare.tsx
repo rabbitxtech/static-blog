@@ -39,7 +39,7 @@ const SocialShare = () => {
 				</svg>
 			</a>
 			{isShare && (
-				<div className="absolute flex flex-wrap gap-2 text-black p-2 rounded top-10 left-[50%] translate-x-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute before:top-[-8px] before:left-[50%] before:translate-x-[-50%] before:rotate-45 before:bg-gray-200">
+				<div className="absolute flex flex-wrap gap-2 text-black p-2 rounded md:top-10 max-md:top-[50%] md:left-[50%] max-md:right-[40px] md:translate-x-[-50%] max-md:translate-y-[-50%] bg-gray-200 before:w-4 before:h-4 before:absolute md:before:top-[-8px] max-md:before:right-[-8px] md:before:left-[50%] max-md:before:top-[50%] md:before:translate-x-[-50%] max-md:before:translate-y-[-50%] before:rotate-45 before:bg-gray-200">
 					<div
 						data-href={`${BASE_URL}${pathName}`}
 						data-layout=""
