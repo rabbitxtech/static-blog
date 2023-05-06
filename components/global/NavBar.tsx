@@ -66,6 +66,14 @@ const NavBar = () => {
 										Blog
 									</Link>
 								</li>
+								<li>
+									<Link
+										href="/bookmark"
+										className="hover:text-blue-600 dark:hover:text-sky-500"
+									>
+										Bookmark
+									</Link>
+								</li>
 							</ul>
 							<ul className="space-x-8 flex ml-6 pl-6 border-l dark:border-white/20">
 								<li>

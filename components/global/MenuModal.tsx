@@ -72,6 +72,15 @@ const MenuModal = () => {
 												Blog
 											</Link>
 										</li>
+										<li className="mb-2">
+											<Link
+												href="/bookmark"
+												className="hover:text-blue-600 dark:hover:text-sky-500 font-semibold duration-300"
+												onClick={closeModal}
+											>
+												Bookmark
+											</Link>
+										</li>
 									</ul>
 									<button
 										type="button"
