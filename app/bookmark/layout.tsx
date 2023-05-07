@@ -49,6 +49,13 @@ export const metadata = {
 				url: `${BASE_URL}/images/rabbit-astronaut.png`
 			}
 		]
+	},
+    alternates: {
+		canonical: `${BASE_URL}/bookmark`,
+		languages: { 'vi-VN': `${BASE_URL}/bookmark` },
+		types: {
+			'application/rss+xml': [{ url: '/rss.xml', title: 'rss' }]
+		}
 	}
 }
 
