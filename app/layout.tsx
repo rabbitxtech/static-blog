@@ -36,7 +36,7 @@ export const metadata = {
 		url: `${BASE_URL}`,
 		title: 'RabbitxTech - Home',
 		description: 'Một góc chia sẻ và lưu trữ tri thức của Rabbit <3',
-		siteName: 'RabbitxTech Blog',
+		siteName: 'RabbitxTech Home',
 		images: [
 			{
 				url: `${BASE_URL}/images/rabbit-astronaut.png`
