@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://rabbitxtech.com/
+Host: https://rabbitxtech.com
 
 # Sitemaps
 Sitemap: https://rabbitxtech.com/sitemap.xml
