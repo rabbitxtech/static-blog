@@ -1,6 +1,6 @@
 import { use } from 'react'
 import Link from 'next/link'
-import { PostCard } from '@/components/global'
+import { Contact, PostCard } from '@/components/global'
 import { getAllPost, fetchAllMetaPost } from '@/utils/getPosts'
 import Image from 'next/image'
 import rabbitAstronaut from '@/public/images/rabbit-astronaut.png'
@@ -96,7 +96,7 @@ const Page = () => {
 					<div className="text-3xl font-semibold mt-8 mb-3">
 						Contact with me
 					</div>
-					<div>Email: nguyendonganh510@gmail.com</div>
+					<Contact />
 				</div>
 			</div>
 		</>
@@ -104,3 +104,4 @@ const Page = () => {
 }
 
 export default Page
+

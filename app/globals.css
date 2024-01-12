@@ -20,7 +20,6 @@ body {
 }
 
 /* Toc style */
-
 .is-active-link a.toc-link {
 	color: #2563eb !important;
 }
@@ -50,6 +49,7 @@ body {
 	padding-left: 8px;
 	padding-right: 32px;
 	margin-top: 12px;
+	font-size: 13px;
 }
 
 .js-toc > .toc-list {
@@ -151,6 +151,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 code::-webkit-scrollbar {
+	width: 8px;
 	height: 8px;
 }
 code::-webkit-scrollbar-track {

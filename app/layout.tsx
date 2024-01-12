@@ -1,12 +1,16 @@
 import './globals.css'
 import '@code-hike/mdx/dist/index.css'
 import 'tocbot/dist/tocbot.css'
+import type { Metadata } from 'next'
+import { Toaster } from 'react-hot-toast'
 import { NavBar, Footer } from '@/components/global'
+import Providers from './providers'
 import Script from 'next/script'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
-export const metadata = {
+export const metadata: Metadata = {
+	metadataBase: new URL(BASE_URL),
 	title: 'RabbitxTech - Home',
 	description: 'Một góc chia sẻ và lưu trữ tri thức của Rabbit <3',
 	icons: {
@@ -72,22 +76,8 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html lang="vi">
+		<html lang="vi" suppressHydrationWarning>
 			<head>
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-						try {
-							if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-							  document.documentElement.classList.add('dark')
-							  //document.querySelector('meta[name="color-scheme"]').setAttribute('content', 'dark')
-							} else {
-							  document.documentElement.classList.remove('dark')
-							}
-						  } catch (_) {}
-					`
-					}}
-				/>
 				<Script
 					async
 					src="https://www.googletagmanager.com/gtag/js?id=G-DJKFB8RH4N"
@@ -110,11 +100,14 @@ export default function RootLayout({
 				/>
 			</head>
 			<body className="dark:bg-zinc-900 dark:text-slate-200">
-				<div className="flex flex-col min-h-[100vh] relative">
-					<NavBar />
-					<div className="flex-1">{children}</div>
-					<Footer />
-				</div>
+				<Providers>
+					<Toaster position="bottom-left" reverseOrder={false} />
+					<div className="flex flex-col min-h-[100vh] relative">
+						<NavBar />
+						<div className="flex-1">{children}</div>
+						<Footer />
+					</div>
+				</Providers>
 			</body>
 		</html>
 	)

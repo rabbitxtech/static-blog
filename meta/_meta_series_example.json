@@ -1,0 +1,27 @@
+{
+	"series": [
+		{
+			"id": 1,
+			"title": "Tên serie",
+			"description": "Mô tả serie",
+			"thumnail": "/images/default-img.jpg"
+		},
+		{
+			"id": 2,
+			"title": "Tên serie",
+			"description": "Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie"
+		},
+		{
+			"id": 3,
+			"title": "Tên serie",
+			"description": "Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie",
+			"thumnail": "/images/cat-1.jpg"
+		},
+		{
+			"id": 4,
+			"title": "Tên serie",
+			"description": "Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie Mô tả serie",
+			"thumnail": "/images/cat-1.jpg"
+		}
+	]
+}

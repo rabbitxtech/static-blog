@@ -5,12 +5,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import rocket from '@/public/icon/rocket.svg'
 import clsx from 'clsx'
-import ToggleDarkMode from './ToggleDarkMode'
-import MenuModal from './MenuModal'
+import ThemeChanger from './ThemeChanger'
+import { useViewStore } from '@/hooks/useViewStore'
+import dynamic from 'next/dynamic'
+
+const MenuModal = dynamic(() => import('./MenuModal'))
 
 const isBrowser = () => typeof window !== 'undefined'
 
 const NavBar = () => {
+	const getViews = useViewStore((state) => state.fetch)
+	const listViews = useViewStore((state) => state.listViews)
 	const [navbar, setNavbar] = useState(false)
 
 	const changeBackground = () => {
@@ -22,6 +27,9 @@ const NavBar = () => {
 	}
 
 	useEffect(() => {
+		if (listViews.length == 0) {
+			getViews()
+		}
 		if (isBrowser()) {
 			window.addEventListener('scroll', changeBackground)
 		}
@@ -35,7 +43,7 @@ const NavBar = () => {
 			)}
 		>
 			<div className="max-w-6xl mx-auto">
-				<div className="py-4 max-sm:px-4 px-8 flex justify-between text-base font-semibold">
+				<div className="py-4 max-sm:px-4 px-8 flex justify-between items-center text-base font-semibold">
 					<div>
 						<Link href="/" className="leading-6">
 							<Image
@@ -68,6 +76,14 @@ const NavBar = () => {
 								</li>
 								<li>
 									<Link
+										href="/series"
+										className="hover:text-blue-600 dark:hover:text-sky-500"
+									>
+										Series
+									</Link>
+								</li>
+								<li>
+									<Link
 										href="/bookmark"
 										className="hover:text-blue-600 dark:hover:text-sky-500"
 									>
@@ -77,7 +93,7 @@ const NavBar = () => {
 							</ul>
 							<ul className="space-x-8 flex ml-6 pl-6 border-l dark:border-white/20">
 								<li>
-									<ToggleDarkMode />
+									<ThemeChanger />
 								</li>
 							</ul>
 						</nav>
@@ -89,3 +105,4 @@ const NavBar = () => {
 }
 
 export default NavBar
+

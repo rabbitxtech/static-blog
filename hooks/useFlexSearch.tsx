@@ -1,8 +1,10 @@
 import { ChangeEvent, useCallback, useMemo, useState } from 'react'
 import { PostMeta } from '@/utils/getPosts'
 import { debounce } from 'throttle-debounce'
+import FlexSearch from 'flexsearch'
 
-import { Document } from 'flexsearch'
+const { Document } = FlexSearch
+
 const useFlexSearch = ({
 	posts,
 	limit
@@ -39,6 +41,7 @@ const useFlexSearch = ({
 		for (const post of posts) {
 			index.add(post)
 		}
+
 		return index
 	}, [posts])
 
@@ -61,3 +64,4 @@ const useFlexSearch = ({
 }
 
 export default useFlexSearch
+

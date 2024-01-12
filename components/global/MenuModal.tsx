@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 import useOpenMenu from '@/hooks/useOpenMenu'
-import ToggleDarkMode from './ToggleDarkMode'
+import ThemeChanger from './ThemeChanger'
 
 const MenuModal = () => {
 	const { isOpen, setIsOpen } = useOpenMenu()
@@ -74,6 +74,15 @@ const MenuModal = () => {
 										</li>
 										<li className="mb-2">
 											<Link
+												href="/series"
+												className="hover:text-blue-600 dark:hover:text-sky-500 font-semibold duration-300"
+												onClick={closeModal}
+											>
+												Series
+											</Link>
+										</li>
+										<li className="mb-2">
+											<Link
 												href="/bookmark"
 												className="hover:text-blue-600 dark:hover:text-sky-500 font-semibold duration-300"
 												onClick={closeModal}
@@ -102,7 +111,7 @@ const MenuModal = () => {
 										</svg>
 									</button>
 									<div className="font-semibold mt-4">
-										<ToggleDarkMode />
+										<ThemeChanger />
 									</div>
 								</Dialog.Panel>
 							</Transition.Child>
@@ -115,3 +124,4 @@ const MenuModal = () => {
 }
 
 export default MenuModal
+

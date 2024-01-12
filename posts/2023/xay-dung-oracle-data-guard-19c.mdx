@@ -18,7 +18,7 @@ ngoài kế hoạch, Oracle Data Guard có thể chuyển bất kỳ cơ sở d�
 cơ sở dữ liệu chính, giảm thiểu downtime. Ngoài ra, Oracle Data Guard sử dụng kỹ thuật backup,
 restoration, và cluster để cung cấp mức độ bảo vệ dữ liệu cao và tính sẵn có của dữ liệu.
 
-# I. Chuẩn bị cài đặt
+# Chuẩn bị cài đặt
 Một cấu hình Oracle Data Guard có thể bao gồm một primary database và tối đa 30 standby database.
 
 Trong hướng dẫn này ta sẽ sử dụng 1 physical primary database và 1 physical standby database (dựng từ primary database) cùng phiên bản nằm trên 2 server khác nhau được dựng trên vmware
@@ -60,8 +60,8 @@ ORACLE_SID=ORASC
 ```
 
 
-# II. Tiến hành cài đặt
-## II.1 Cấu hình primary database
+# Tiến hành cài đặt
+## Cấu hình primary database
 ### Kích hoạt mode phù hợp cho Data Guard
 Logging mode mặc định của 1 database không phù hợp với cấu hình Data Guard, mode này cho phép các hành động load dữ liệu nhất định không ghi lại log (nolog).
 mode này không phù hợp với standby database vì nó dẫn đến việc dữ liệu đã được load bị thiếu ở standby, dẫn đến việc cần can thiệp
@@ -89,6 +89,7 @@ Trong hướng dẫn này ta sẽ sử dụng `STANDBY NOLOGGING FOR DATA AVAILA
 ### Kích hoạt Archiving
 Nếu archiving không được kích hoạt thì ta phải bật `ARCHIVELOG` mode trên primary database để kích hoạt archiving tự động
 Sử dụng các câu lệnh
+
 ```sql
 SHUTDOWN IMMEDIATE;
 STARTUP MOUNT;
@@ -96,7 +97,8 @@ ALTER DATABASE ARCHIVELOG;
 ALTER DATABASE OPEN;
 ```
 ### Đặt các tham số khởi tạo
-```sql
+
+```
 ALTER SYSTEM SET DB_UNIQUE_NAME=ORAPR SCOPE=SPFILE;
 ALTER SYSTEM SET LOG_ARCHIVE_CONFIG='DG_CONFIG=(ORAPR,ORASC)' SCOPE=SPFILE;
 ALTER SYSTEM SET CONTROL_FILES='/data/ORAPR/control01.ctl', '/fra/ORAPR/control02.ctl' SCOPE=SPFILE;
@@ -209,7 +211,7 @@ ORASC =
 
 </CH.Code>
 
-## II.2. Cấu hình và khởi tạo standby database
+## Cấu hình và khởi tạo standby database
 Tạo standby control file trên primary
 ```sql
 ALTER DATABASE CREATE STANDBY CONTROLFILE AS '/backup/orasc.ctl';
@@ -392,7 +394,7 @@ RMAN> CATALOG START WITH '/backup/rman/data';
 RMAN> RESTORE DATABASE;
 RMAN> RECOVER DATABASE;
 ```
-## II.3. Apply quy trình
+## Apply quy trình
 
 Sau khi thực hiện duplicate database, thực thi các câu lệnh phía standby
 
@@ -425,7 +427,7 @@ ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DELAY 30 DISCONNECT FROM SESSION
 ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;
 ALTER DATABASE RECOVER MANAGED STANDBY DATABASE NODELAY DISCONNECT FROM SESSION;
 ```
-# III. Kiểm tra cài đặt
+# Kiểm tra cài đặt
 Trên primary database, kiểm tra archived redo log mới nhất và force a log switch (bắt Log Switches để chuyển sang log file tiếp theo)
 ```sql
 SELECT SEQUENCE#, FIRST_TIME, NEXT_TIME FROM V$ARCHIVED_LOG ORDER BY SEQUENCE# DESC;
@@ -440,7 +442,7 @@ Kiểm tra OPEN_MODE, DATABASE_ROLE, SWITCHOVER_STATUS trước khi switchover
 ```sql
 SELECT OPEN_MODE, DATABASE_ROLE, SWITCHOVER_STATUS FROM V$DATABASE;
 ```
-# IV. SWITCHOVER và FAILOVER
+# SWITCHOVER và FAILOVER
 ### SWITCHOVER
 Một database có thể ở một trong 2 role là primary và standby, hai role này có thể thay đổi trong thời gian chạy mà không làm maastg mát dữ liệu 
 hoặc reset redo logs. Quá trình chuyển đổi này được gọi là `SWITCHOVER`.
