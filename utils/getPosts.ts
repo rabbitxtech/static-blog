@@ -75,7 +75,7 @@ export const fetchAllMetaPost = async (
 
 export const fetchAllSerieId = async (): Promise<number[]> => {
 	let listSerieId: number[] = []
-	_meta_serires.series.map((el) => {
+	_meta_serires.series.map((el: Serie) => {
 		listSerieId.push(el.id)
 	})
 	return listSerieId
