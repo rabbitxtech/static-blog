@@ -98,6 +98,10 @@ export default function RootLayout({
 					rel="stylesheet"
 					href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
 				/>
+				<meta
+					name="google-site-verification"
+					content="Gfqi7ltFq9hM4YyY5yIbmPG7QOnO3PGKwUKQv2FoY9Y"
+				/>
 			</head>
 			<body className="dark:bg-zinc-900 dark:text-slate-200">
 				<Providers>
