@@ -21,41 +21,46 @@ export const generateMetadata = ({
 }: {
 	params: { serie_id: number }
 }): Metadata => {
-	const serie: Serie | undefined = _meta_series.series.find((serie) => {
-		return serie.id == params.serie_id
-	})
-	if (serie)
-		return {
-			title: 'RabbitxTech - Series',
-			description: serie.description,
-			twitter: {
-				card: 'summary',
-				title: 'RabbitxTech - Series',
-				description: serie.description,
-				creator: 'rabbitxtech',
-				site: 'rabbitxtech',
-				images: [
-					{
-						url: `${BASE_URL}/images/rabbit-astronaut.png`
+	if (_meta_series.series.length !== 0) {
+		const serie: Serie[] = _meta_series.series.filter((el: Serie) => {
+			return el.id == params.serie_id
+		})
+
+		if (serie) {
+			return {
+				title: serie[0].title,
+				description: serie[0].description,
+				twitter: {
+					card: 'summary',
+					title: serie[0].title,
+					description: serie[0].description
+				},
+				applicationName: 'RabbitxTech',
+				colorScheme: 'normal',
+				alternates: {
+					canonical: `${BASE_URL}/series/${params.serie_id}`,
+					languages: {
+						'vi-VN': `${BASE_URL}/series/${params.serie_id}`
 					}
-				]
-			},
-			applicationName: 'RabbitxTech',
-			colorScheme: 'normal',
-			alternates: {
-				canonical: `${BASE_URL}/series/${params.serie_id}`,
-				languages: { 'vi-VN': `${BASE_URL}/series/${params.serie_id}` },
-				types: {
-					'application/rss+xml': [{ url: '/rss.xml', title: 'rss' }]
 				}
 			}
 		}
+	}
+
 	return {}
 }
 
 const Page = ({ params }: { params: { serie_id: number } }) => {
 	const posts = use(fetchAllMetaPostBySerieId(params.serie_id))
-	const serie = _meta_series.series.filter((el) => el.id == params.serie_id)
+	let serie: Serie[]
+
+	if (_meta_series.series.length == 0) {
+		serie = []
+	} else {
+		serie = _meta_series.series.filter(
+			(el: Serie) => el.id == params.serie_id
+		)
+	}
 
 	return (
 		<>
