@@ -2,6 +2,7 @@ import './globals.css'
 import '@code-hike/mdx/dist/index.css'
 import 'tocbot/dist/tocbot.css'
 import type { Metadata } from 'next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Toaster } from 'react-hot-toast'
 import { NavBar, Footer } from '@/components/global'
 import Providers from './providers'
@@ -109,6 +110,7 @@ export default function RootLayout({
 						<Footer />
 					</div>
 				</Providers>
+				<SpeedInsights />
 			</body>
 		</html>
 	)

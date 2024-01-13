@@ -16,6 +16,7 @@
     "@giscus/react": "^2.2.8",
     "@headlessui/react": "^1.7.13",
     "@types/node": "^18.15.11",
+    "@vercel/speed-insights": "^1.0.3",
     "clsx": "^1.2.1",
     "contentlayer": "^0.3.2",
     "cssnano": "^6.0.3",
