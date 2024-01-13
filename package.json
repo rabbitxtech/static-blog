@@ -18,6 +18,7 @@
     "@types/node": "^18.15.11",
     "clsx": "^1.2.1",
     "contentlayer": "^0.3.2",
+    "cssnano": "^6.0.3",
     "date-fns": "2.29.3",
     "flexsearch": "^0.7.21",
     "github-slugger": "^2.0.0",
