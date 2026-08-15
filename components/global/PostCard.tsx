@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { format, parseISO } from 'date-fns'
 import { TabNavItem } from './TabNavItem'
 import ViewsCounter from './ViewsCounter'
 import { PostMeta } from '@/utils/getPosts'
 import { getNormalSlug } from '@/utils/getTexts'
+import { formatPostDate } from '@/utils/formatDate'
 import { IoMdTime } from 'react-icons/io'
 import { CgReadme } from "react-icons/cg";
 
@@ -54,7 +54,7 @@ const PostCard = (post: PostMeta) => {
 						<div className="flex items-center gap-[2px]">
 							<IoMdTime size={14} />
 							<time dateTime={post.date}>
-								{format(parseISO(post.date), 'LLLL d, yyyy')}
+								{formatPostDate(post.date)}
 							</time>
 						</div>
 						<div className="flex items-center gap-[2px]">

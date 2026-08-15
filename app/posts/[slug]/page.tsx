@@ -1,7 +1,6 @@
 import { use } from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import { format, parseISO } from 'date-fns'
 import type { Metadata } from 'next'
 import clsx from 'clsx'
 import { allPosts, Post } from 'contentlayer/generated'
@@ -17,6 +16,7 @@ import { getKeyWords } from '@/utils/getCategories'
 import { TabNavItem, ViewsCounter } from '@/components/global'
 import { getNormalSlug } from '@/utils/getTexts'
 import { fetchAllMetaPost, fetchPostBySlug } from '@/utils/getPosts'
+import { formatPostDate } from '@/utils/formatDate'
 import { IoMdTime } from 'react-icons/io'
 import { CgReadme } from 'react-icons/cg'
 
@@ -44,27 +44,6 @@ export const generateMetadata = ({
 			creator: 'rabbitxtech',
 			publisher: 'rabbitxtech',
 			robots: { index: true, follow: true },
-			icons: {
-				other: [
-					{
-						rel: 'shortcut icon',
-						type: 'image/x-icon',
-						url: '/favicon.ico'
-					},
-					{
-						rel: 'icon',
-						type: 'image/png',
-						url: '/icon/favicon-16x16.png'
-					},
-					{
-						rel: 'icon',
-						type: 'image/png',
-						url: '/icon/favicon-32x32.png'
-					}
-				],
-				apple: '/icon/apple-touch-icon.png'
-			},
-			manifest: '/site.webmanifest',
 			openGraph: {
 				type: 'article',
 				url: `${BASE_URL}${post.url}`,
@@ -124,10 +103,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
 							<div className="flex items-center gap-[2px]">
 								<IoMdTime size={14} />
 								<span itemProp="datePublished">
-									{format(
-										parseISO(post.date),
-										'LLLL d, yyyy'
-									)}
+									{formatPostDate(post.date)}
 								</span>
 							</div>
 							<div className="flex items-center gap-[2px]">
@@ -163,7 +139,12 @@ const Page = ({ params }: { params: { slug: string } }) => {
 					post.toc ? 'justify-between' : 'justify-center w-full'
 				)}
 			>
-				<article className="main w-3/4 max-md:w-full">
+				<article
+					className={clsx(
+						'main max-md:w-full',
+						post.toc ? 'w-3/4' : 'w-full'
+					)}
+				>
 					<div className="js-toc-content px-8 max-sm:px-4">
 						<Image
 							src={post.thumbnail}
@@ -177,9 +158,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
 						<Comment />
 					</div>
 				</article>
-				<aside className="sticky top-[64px] max-h-[calc(100vh-64px)] max-[1080px]:hidden overflow-y-auto overflow-x-hidden">
-					<MDXToc toc={true} />
-				</aside>
+				{post.toc && (
+					<aside className="sticky top-[64px] max-h-[calc(100vh-64px)] max-[1080px]:hidden overflow-y-auto overflow-x-hidden">
+						<MDXToc toc={post.toc} />
+					</aside>
+				)}
 				<BackToTop />
 			</div>
 		</>

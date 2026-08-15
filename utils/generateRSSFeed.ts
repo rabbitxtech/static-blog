@@ -1,11 +1,10 @@
-import fs from 'fs';
 import RSS from 'rss'
 import { getAllPost } from './getPosts'
-import { getKeyWords } from './getCategories';
+import { getKeyWords } from './getCategories'
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
-export default async function generateRssFeed() {
+export default async function generateRssFeed(): Promise<string> {
 	const feedOptions = {
 		title: 'RabbitxTech blog | RSS Feed',
 		description: 'Welcome to RabbitxTech blog!',
@@ -17,7 +16,7 @@ export default async function generateRssFeed() {
 	}
 	const feed = new RSS(feedOptions)
 
-	getAllPost().map((post) => {
+	getAllPost().forEach((post) => {
 		feed.item({
 			title: post.title,
 			description: post.description,
@@ -28,5 +27,5 @@ export default async function generateRssFeed() {
 		})
 	})
 
-	fs.writeFileSync('./public/rss.xml', feed.xml({ indent: true }));
+	return feed.xml({ indent: true })
 }

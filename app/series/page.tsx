@@ -1,5 +1,14 @@
 import { ListSeries } from '@/components/global'
 import _meta_series from '@/meta/_meta_series.json'
+import { buildSiteMetadata } from '@/lib/seo'
+import { getKeyWords } from '@/utils/getCategories'
+
+export const metadata = buildSiteMetadata({
+	title: 'RabbitxTech - Series',
+	description: 'Tất cả các serie của mình',
+	path: '/series',
+	keywords: getKeyWords()
+})
 
 const Page = () => {
 	const series = _meta_series.series

@@ -4,14 +4,7 @@ import '@/models/view.model'
 const MONGODB_URI =
 	process.env.MONGODB_URI || 'mongodb://localhost:27017/static-blog'
 
-if (!MONGODB_URI) {
-	throw new Error(
-		'Please define the MONGODB_URI environment variable inside .env'
-	)
-}
-
 const opts = {
-	useNewUrlParser: true,
 	autoIndex: false, // Don't build indexes
 	maxPoolSize: 10, // Maintain up to 10 socket connections
 	serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds

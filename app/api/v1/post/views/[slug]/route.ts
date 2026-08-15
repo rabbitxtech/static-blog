@@ -1,7 +1,7 @@
 import { View } from '@/models/view.model'
 import connectMongo from '@/utils/mongodb'
 import { NextResponse } from 'next/server'
-import { Post, allPosts } from '@/.contentlayer/generated'
+import { Post, allPosts } from 'contentlayer/generated'
 
 const newAndUpdateView = async (slug: string) => {
 	try {

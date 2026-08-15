@@ -6,28 +6,29 @@ import { HashLoader } from 'react-spinners'
 import toast from 'react-hot-toast'
 
 const Contact = () => {
-	const [isLoading, setIsLoanding] = useState<boolean>(false)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-		setIsLoanding(true)
 		event.preventDefault()
+		const form = event.currentTarget
+		setIsLoading(true)
 
 		const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID as string
 		const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID as string
 		const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY as string
 
 		emailjs
-			.sendForm(serviceID, templateID, event.currentTarget, publicKey)
+			.sendForm(serviceID, templateID, form, publicKey)
 			.then(
 				() => {
-					setIsLoanding(false)
+					setIsLoading(false)
 					toast.success('Email sent successfully!')
+					form.reset()
 				},
 				() => {
-					setIsLoanding(false)
+					setIsLoading(false)
 					toast.error('Error! Failed to send email')
 				}
 			)
-		event.currentTarget?.reset()
 	}
 	return (
 		<div className="text-black dark:text-white">

@@ -13,20 +13,20 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 
 export const generateStaticParams = async () => {
 	const allSerieId = await fetchAllSerieId()
-	return allSerieId
+	return allSerieId.map((serie_id) => ({ serie_id: String(serie_id) }))
 }
 
 export const generateMetadata = ({
 	params
 }: {
-	params: { serie_id: number }
+	params: { serie_id: string }
 }): Metadata => {
 	if (_meta_series.series.length !== 0) {
-		const serie: Serie[] = _meta_series.series.filter((el: Serie) => {
-			return el.id == params.serie_id
-		})
+		const serie: Serie[] = _meta_series.series.filter(
+			(el: Serie) => el.id === Number(params.serie_id)
+		)
 
-		if (serie) {
+		if (serie.length > 0) {
 			return {
 				title: serie[0].title,
 				description: serie[0].description,
@@ -50,17 +50,11 @@ export const generateMetadata = ({
 	return {}
 }
 
-const Page = ({ params }: { params: { serie_id: number } }) => {
-	const posts = use(fetchAllMetaPostBySerieId(params.serie_id))
-	let serie: Serie[]
-
-	if (_meta_series.series.length == 0) {
-		serie = []
-	} else {
-		serie = _meta_series.series.filter(
-			(el: Serie) => el.id == params.serie_id
-		)
-	}
+const Page = ({ params }: { params: { serie_id: string } }) => {
+	const posts = use(fetchAllMetaPostBySerieId(Number(params.serie_id)))
+	const serie: Serie[] = _meta_series.series.filter(
+		(el: Serie) => el.id === Number(params.serie_id)
+	)
 
 	return (
 		<>

@@ -48,3 +48,5 @@ next.folder.structure.txt
 /public/rss.xml
 /public/sitemap*.xml
 /public/robots.txt
+
+.claude

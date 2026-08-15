@@ -4,12 +4,10 @@ import { Contact, PostCard } from '@/components/global'
 import { getAllPost, fetchAllMetaPost } from '@/utils/getPosts'
 import Image from 'next/image'
 import rabbitAstronaut from '@/public/images/rabbit-astronaut.png'
-import generateRssFeed from '@/utils/generateRSSFeed'
 import { FadeInSection } from '@/components/global'
 
 const Page = () => {
-	use(generateRssFeed())
-	const posts = use(fetchAllMetaPost(getAllPost())).splice(0, 4)
+	const posts = use(fetchAllMetaPost(getAllPost())).slice(0, 4)
 
 	return (
 		<>

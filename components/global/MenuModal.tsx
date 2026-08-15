@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
+import { MdClose } from 'react-icons/md'
 import useOpenMenu from '@/hooks/useOpenMenu'
 import ThemeChanger from './ThemeChanger'
 
@@ -96,19 +97,7 @@ const MenuModal = () => {
 										className="flex justify-center items-center absolute w-8 h-8 top-5 right-5 rounded-md border border-transparent"
 										onClick={closeModal}
 									>
-										<svg
-											viewBox="0 0 10 10"
-											className="w-2.5 h-2.5 overflow-visible"
-											aria-hidden="true"
-										>
-											<path
-												d="M0 0L10 10M10 0L0 10"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth="2"
-												strokeLinecap="round"
-											></path>
-										</svg>
+										<MdClose size={24} />
 									</button>
 									<div className="font-semibold mt-4">
 										<ThemeChanger />

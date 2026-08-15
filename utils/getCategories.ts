@@ -1,4 +1,4 @@
-import { Post, allPosts } from "@/.contentlayer/generated";
+import { Post, allPosts } from "contentlayer/generated";
 import { getNormalSlug } from "./getTexts";
 
 export type PageProps = {
@@ -12,19 +12,19 @@ export type Category = {
 };
 
 
-export const getAllTags = (posts: Post[] = allPosts) => posts.reduce((allTags: Category[], post) => {
-    post.tags?.forEach(tag => {
-        let idx = allTags.find((el) => {
-            if (!tag.title) return false
-            return el.slug === getNormalSlug(tag.title)
+export const getAllTags = (posts: Post[] = allPosts): Category[] => {
+    const tagMap = new Map<string, Category>()
+    posts.forEach((post) => {
+        post.tags?.forEach((tag) => {
+            if (!tag.title) return
+            const slug = getNormalSlug(tag.title)
+            if (!tagMap.has(slug)) {
+                tagMap.set(slug, { title: tag.title, slug })
+            }
         })
-        if (!idx) {
-            if (tag.title)
-                allTags = [...allTags, { title: tag.title, slug: getNormalSlug(tag.title) }]
-        }
     })
-    return allTags
-}, [])
+    return Array.from(tagMap.values())
+}
 
 export const getKeyWords = (posts: Post[] = allPosts): string[] => {
     const tags = getAllTags(posts)

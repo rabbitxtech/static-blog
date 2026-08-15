@@ -1,5 +1,10 @@
 {
 	"series": [
+		{
+			"id": 1,
+			"title": "Oracle data integrator from zero to hero",
+			"description": "Oracle data integrator (ODI) là một nền tảng tích hợp dữ liệu có hiệu năng cao, có thể được sử dụng trong nhiều dự án khác nhau như Data Warehousing, SOA, ... Cùng tìm hiểu ODI từ con số 0 nhé."
+		}
 	]
 }
 

@@ -33,7 +33,12 @@ const NavBar = () => {
 		if (isBrowser()) {
 			window.addEventListener('scroll', changeBackground)
 		}
-		return () => {}
+		return () => {
+			if (isBrowser()) {
+				window.removeEventListener('scroll', changeBackground)
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
 		<div

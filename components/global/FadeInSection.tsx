@@ -3,7 +3,7 @@
 import React, { useState, HTMLProps } from 'react'
 
 const FadeInSection: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
-	const [isVisible, setVisible] = useState<boolean>(true)
+	const [isVisible, setVisible] = useState<boolean>(false)
 	const domRef = React.useRef<HTMLDivElement>(null)
 	React.useEffect(() => {
 		const observer = new IntersectionObserver((entries, observer) => {

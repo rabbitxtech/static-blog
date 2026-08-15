@@ -1,19 +1,19 @@
 import { compareDesc } from 'date-fns'
 import { allPosts, Post } from 'contentlayer/generated'
-import _meta_serires from '@/meta/_meta_series.json'
+import _meta_series from '@/meta/_meta_series.json'
 import { pick } from 'contentlayer/client'
 import { getNormalSlug } from './getTexts'
 
-export type PostMeta = Omit<Post, '_raw' | 'body' | 'toc' | 'type' | 'heading'>
+export type PostMeta = Omit<Post, '_raw' | 'body' | 'toc' | 'type'>
 export type Serie = {
 	id: number
 	title: string
 	description: string
-	thumnail?: string
+	thumbnail?: string
 }
 
 export const getAllPost = () => {
-	const posts: Post[] = allPosts.sort((a, b) => {
+	const posts: Post[] = [...allPosts].sort((a, b) => {
 		return compareDesc(new Date(a.date), new Date(b.date))
 	})
 	return posts
@@ -27,7 +27,9 @@ export const getPostBySlug = (slug: string) => {
 
 export const getAllPostByTagSlug = (slug: string) => {
 	let posts: Post[] = allPosts.filter((post) =>
-		post.tags?.find((el) => getNormalSlug(el.title as string) === slug)
+		post.tags?.find(
+			(el) => el.title && getNormalSlug(el.title) === slug
+		)
 	)
 	posts = posts.sort((a, b) => {
 		return compareDesc(new Date(a.date), new Date(b.date))
@@ -74,11 +76,7 @@ export const fetchAllMetaPost = async (
 }
 
 export const fetchAllSerieId = async (): Promise<number[]> => {
-	let listSerieId: number[] = []
-	_meta_serires.series.map((el: Serie) => {
-		listSerieId.push(el.id)
-	})
-	return listSerieId
+	return _meta_series.series.map((el: Serie) => el.id)
 }
 
 export const fetchAllMetaPostBySerieId = async (

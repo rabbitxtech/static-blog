@@ -1,6 +1,4 @@
-import GithubSlugger, { slug } from 'github-slugger'
-
-const slugger = new GithubSlugger()
+import { slug } from 'github-slugger'
 
 export const getInnerText = (props: any): string => {
     let s = ''
@@ -42,15 +40,9 @@ export const removeVietnameseTones = (s: string): string => {
 }
 
 export const getSlugHeading = (s: any): string => {
-    // return slugger.slug(removeVietnameseTones(getInnerText(s)))
-    return slug(removeVietnameseTones(getInnerText(s)))
+    return getNormalSlug(getInnerText(s))
 }
 
 export const getNormalSlug = (s: string): string => {
     return slug(removeVietnameseTones(s))
-}
-
-const getHighlightedText = (text: string) => {
-    const textSearch = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-    const pattern = new RegExp(`${textSearch}`, "gi")
 }

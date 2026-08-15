@@ -1,5 +1,6 @@
 import { Serie } from '@/utils/getPosts'
 import Link from 'next/link'
+import Image from 'next/image'
 import React from 'react'
 
 const SerieCard = (serie: Serie) => {
@@ -7,10 +8,12 @@ const SerieCard = (serie: Serie) => {
 		<Link href={`/series/${serie.id}`}>
 			<div className="p-6 border dark:border-white/20 dark:hover:border-white/30 dark:bg-zinc-800 bg-slate-50 rounded-lg h-full max-sm:block">
 				<span>
-					<img
-						src={serie.thumnail || '/images/default-img.jpg'}
-						alt=""
-						className="min-h-[220px]"
+					<Image
+						src={serie.thumbnail || '/images/default-img.jpg'}
+						alt={serie.title}
+						width={500}
+						height={280}
+						className="min-h-[220px] w-full object-cover"
 					/>
 				</span>
 				<div className='mt-3'>

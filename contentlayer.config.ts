@@ -9,7 +9,6 @@ import rehypeKatex from 'rehype-katex'
 import { remarkCodeHike } from '@code-hike/mdx'
 import { createRequire } from 'module'
 import readingTime from 'reading-time'
-import { getNormalSlug } from './utils/getTexts'
 
 const require = createRequire(import.meta.url)
 const theme = require('shiki/themes/one-dark-pro.json')
@@ -94,23 +93,6 @@ const Post = defineDocumentType(() => ({
 			type: 'string',
 			resolve: (doc) =>
 				`/posts/${doc._raw.sourceFileName.replace(/\.mdx/, '')}`
-		},
-		heading: {
-			type: 'json',
-			resolve: (doc) => {
-				const regexHeader = /(?<heading>#{1,6})\s(?<content>.*)/gm
-				const headings = Array.from(
-					doc.body.raw.matchAll(regexHeader)
-				).map(({ groups }) => {
-					const heading = groups?.heading
-					const content = getNormalSlug(groups?.content as string)
-					return {
-						level: heading?.length,
-						content: content
-					}
-				})
-				return headings
-			}
 		}
 	}
 }))

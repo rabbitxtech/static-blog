@@ -1,7 +1,7 @@
 'use client'
 
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import { Post } from '@/.contentlayer/generated'
+import { Post } from 'contentlayer/generated'
 import MDXHeadings from './MDXHeadings'
 import MDXImage from './MDXImage'
 import MDXLink from './MDXLink'

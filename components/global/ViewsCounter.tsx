@@ -1,7 +1,7 @@
 'use client'
 
 import { useViewStore } from '@/hooks/useViewStore'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { BsEyeFill } from 'react-icons/bs'
 
 const ViewsCounter = ({
@@ -13,6 +13,7 @@ const ViewsCounter = ({
 }) => {
 	const listViews = useViewStore((state) => state.listViews)
 	const updateView = useViewStore((state) => state.updateView)
+	const hasIncremented = useRef(false)
 
 	const viewCount = useMemo(() => {
 		if (listViews.length != 0) {
@@ -24,7 +25,8 @@ const ViewsCounter = ({
 	}, [listViews, slug])
 
 	useEffect(() => {
-		if (update) {
+		if (update && !hasIncremented.current) {
+			hasIncremented.current = true
 			updateView(slug)
 		}
 		return () => {}
